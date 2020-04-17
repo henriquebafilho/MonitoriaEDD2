@@ -2,33 +2,42 @@
  * e no livro "Estrutura de Dados e Seus Algoritmos - 3ª edição" de Jayme Luiz Szwarcfiter e Lilian Markenzon*/
 package ArvoreAVL;
 
-import ArvoreBinaria.Arvbin;
-
 public class ArvoreAVL<T extends Comparable<T>> {
 
-	private T valor;
-	private Arvbin<T> esq, dir;
+	private T chave; 
+	private ArvoreAVL esq, dir; 
+	
+	/*public class No {
+		private T chave; 
+		private No esq, dir; 
 
-	public ArvoreAVL(T raiz) {
-		this.valor = raiz;
+		public No(T chave) {
+			this.chave = chave;
+			this.esq = null;
+			this.dir = null;
+		}
+
+		public No(T chave, No esq, No dir) {
+			this.chave = chave;
+			this.esq = esq;
+			this.dir = dir;
+		}
+	}*/
+
+	public ArvoreAVL(T chave) {
+		this.chave = chave;
 		esq = null;
 		dir = null;
 	}
-	
-	public ArvoreAVL(T valor, Arvbin<T> arvEsq, Arvbin<T> arvDir) {
-		this.valor = valor;
-		esq = arvEsq;
-		dir = arvDir;
+
+	public ArvoreAVL(T chave, ArvoreAVL arvEsq, ArvoreAVL arvDir) {
+		this.chave = chave;
+		this.esq = arvEsq;
+		this.dir = arvDir;
 	}
-	
-	public ArvoreAVL()
-	{
-		valor = null;
-	}
-	
-	public boolean vazia()
-	{
-		return (valor == null);
+
+	public boolean vazia() {
+		return (chave == null);
 	}
 
 	public int calculaAltura() {
@@ -46,5 +55,9 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		return 1 + Math.max(altEsq, altDir);
 	}
 
+	public void insereNo(ArvoreAVL no) {
 
+		
+		
+	}
 }
