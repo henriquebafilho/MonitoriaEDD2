@@ -4,6 +4,7 @@ package ArvoreAVL;
 
 public class ArvoreAVL<T extends Comparable<T>> {
 
+	//Todo nó de uma árvore AVL é uma árvore, contendo uma chave, outra árvore a esquerda e outra a direita
 	private T chave; 
 	private ArvoreAVL esq, dir; 
 	
@@ -23,23 +24,31 @@ public class ArvoreAVL<T extends Comparable<T>> {
 			this.dir = dir;
 		}
 	}*/
-
+	
+	public ArvoreAVL() {
+		chave = null;
+	}
+	
+	//Criar árvore com apenas um nó
 	public ArvoreAVL(T chave) {
 		this.chave = chave;
 		esq = null;
 		dir = null;
 	}
-
+	
+	//Criar árvore com nós a direita
 	public ArvoreAVL(T chave, ArvoreAVL arvEsq, ArvoreAVL arvDir) {
 		this.chave = chave;
 		this.esq = arvEsq;
 		this.dir = arvDir;
 	}
-
+	
+	//Checa se a árvore é vazia
 	public boolean vazia() {
 		return (chave == null);
 	}
-
+	
+	//Calcula altura da árvore
 	public int calculaAltura() {
 		if ((esq == null) && (dir == null))
 			return 0;
@@ -54,10 +63,14 @@ public class ArvoreAVL<T extends Comparable<T>> {
 
 		return 1 + Math.max(altEsq, altDir);
 	}
-
-	public void insereNo(ArvoreAVL no) {
-
+	
+	//Insere nó na árvore
+	public void insere(ArvoreAVL no) {
 		
+		if(no == null) {
+			throw new IllegalArgumentException("A chave fornecida é null!");
+		}
 		
 	}
+
 }
