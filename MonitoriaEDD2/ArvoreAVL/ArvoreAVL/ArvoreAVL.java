@@ -25,6 +25,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		}
 	}*/
 	
+	//Arvore vazia
 	public ArvoreAVL() {
 		chave = null;
 	}
@@ -36,7 +37,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		dir = null;
 	}
 	
-	//Criar árvore com nós a direita
+	//Criar árvore com nós a esquerda e a direita
 	public ArvoreAVL(T chave, ArvoreAVL arvEsq, ArvoreAVL arvDir) {
 		this.chave = chave;
 		this.esq = arvEsq;
@@ -64,7 +65,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		return 1 + Math.max(altEsq, altDir);
 	}
 	
-	//Insere nó na árvore
+	//TODO - Insere nó na árvore
 	public void insere(ArvoreAVL no) {
 		
 		if(no == null) {
@@ -72,5 +73,8 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		}
 		
 	}
+	
+	//TODO balanceamento
+	
 
 }
