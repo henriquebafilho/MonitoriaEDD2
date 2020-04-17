@@ -4,22 +4,22 @@ package ArvoreAVL;
 
 public class ArvoreAVL<T extends Comparable<T>> {
 
-	//Todo nó de uma árvore AVL é uma árvore, contendo uma chave, outra árvore a esquerda e outra a direita
-	private T chave; 
+	//Todo nó de uma árvore AVL é uma árvore, contendo uma chave raiz com um valor, outra árvore a esquerda e outra a direita, que podem ser nulas ou não
+	private T raiz; 
 	private ArvoreAVL esq, dir; 
 	
 	/*public class No {
-		private T chave; 
+		private T raiz; 
 		private No esq, dir; 
 
-		public No(T chave) {
-			this.chave = chave;
+		public No(T raiz) {
+			this.raiz = raiz;
 			this.esq = null;
 			this.dir = null;
 		}
 
-		public No(T chave, No esq, No dir) {
-			this.chave = chave;
+		public No(T raiz, No esq, No dir) {
+			this.raiz = raiz;
 			this.esq = esq;
 			this.dir = dir;
 		}
@@ -27,26 +27,26 @@ public class ArvoreAVL<T extends Comparable<T>> {
 	
 	//Arvore vazia
 	public ArvoreAVL() {
-		chave = null;
+		raiz = null;
 	}
 	
 	//Criar árvore com apenas um nó
-	public ArvoreAVL(T chave) {
-		this.chave = chave;
+	public ArvoreAVL(T raiz) {
+		this.raiz = raiz;
 		esq = null;
 		dir = null;
 	}
 	
 	//Criar árvore com nós a esquerda e a direita
-	public ArvoreAVL(T chave, ArvoreAVL arvEsq, ArvoreAVL arvDir) {
-		this.chave = chave;
+	public ArvoreAVL(T raiz, ArvoreAVL arvEsq, ArvoreAVL arvDir) {
+		this.raiz = raiz;
 		this.esq = arvEsq;
 		this.dir = arvDir;
 	}
 	
 	//Checa se a árvore é vazia
 	public boolean vazia() {
-		return (chave == null);
+		return (raiz == null);
 	}
 	
 	//Calcula altura da árvore
