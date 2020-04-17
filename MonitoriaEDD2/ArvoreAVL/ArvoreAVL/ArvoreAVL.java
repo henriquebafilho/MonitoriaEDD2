@@ -58,20 +58,9 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		return 1 + Math.max(altEsq, altDir);
 	}
 
-	// TODO - Insere nó na árvore
-	public void insere(ArvoreAVL no) {
-
-		if (no == null) {
-			throw new IllegalArgumentException("A chave fornecida é null!");
-		}
-
-	}
-
-	// TODO balanceamento
-
-	// TODO mostrar
+	// Mostra árvore
 	public void mostra() {
-		
+
 		System.out.print("(" + this.raiz);
 
 		if (esq != null) {
@@ -83,4 +72,16 @@ public class ArvoreAVL<T extends Comparable<T>> {
 
 		System.out.print(")");
 	}
+
+	// TODO - Insere nó na árvore
+	public void insere(ArvoreAVL no) {
+
+		if (no == null) {
+			throw new IllegalArgumentException("A chave fornecida é null!");
+		}
+
+	}
+
+	// TODO balanceamento
+
 }
