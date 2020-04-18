@@ -41,10 +41,18 @@ public class ArvoreAVL<T extends Comparable<T>> {
 	public boolean vazia() {
 		return (raiz == null);
 	}
+	
+	// Checa se é folha
+	public boolean folha() {
+		if(esq == null && dir == null) {
+			return true;
+		}
+		return false;
+	}
 
 	// Calcula altura da árvore
 	public int calculaAltura() {
-		if ((esq == null) && (dir == null))
+		if (esq == null && dir == null)
 			return 0;
 
 		int altEsq = 0, altDir = 0;
@@ -61,7 +69,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 	// Mostra árvore
 	public void mostra() {
 
-		System.out.print("(" + this.raiz);
+		System.out.print("(" + raiz);
 
 		if (esq != null) {
 			esq.mostra();
@@ -79,7 +87,8 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		if (no == null) {
 			throw new IllegalArgumentException("A chave fornecida é null!");
 		}
-
+		
+		
 	}
 
 	// TODO balanceamento

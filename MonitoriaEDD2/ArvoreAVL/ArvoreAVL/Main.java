@@ -9,7 +9,7 @@ public class Main {
 		ArvoreAVL a3 = new ArvoreAVL(3);
 		ArvoreAVL a2 = new ArvoreAVL(2, a1, a3);
 		
-		a2.mostra();
+		
 	}
 
 }
