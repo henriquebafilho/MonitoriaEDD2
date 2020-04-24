@@ -3,26 +3,22 @@
  * e no livro "Estrutura de Dados e Seus Algoritmos - 3ª edição" de Jayme Luiz Szwarcfiter e Lilian Markenzon*/
 package ArvoreAVL;
 
-public class ArvoreAVL<Chave extends Comparable<Chave>, Valor> {
+public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
-	private No raiz; //raiz da árvore
+	private No raiz; // raiz da árvore
 
-	public class No {
+	private class No {
 		private Chave chave; // Chave usada nas comparações.
-		private Valor valor; // Informação armazenada.
 		private No esq, dir; // Referências para subárvores esquerda e direita.
 
-		public No(Chave chave, Valor valor) {
+		public No(Chave chave) {
 			this.chave = chave;
-			this.valor = valor;
 			this.esq = null;
 			this.dir = null;
 		}
 
-		public No(Chave chave, Valor valor, No esq, No dir)
-		{
+		public No(Chave chave, No esq, No dir) {
 			this.chave = chave;
-			this.valor = valor;
 			this.esq = esq;
 			this.dir = dir;
 		}
@@ -33,73 +29,97 @@ public class ArvoreAVL<Chave extends Comparable<Chave>, Valor> {
 		raiz = null;
 	}
 
-	/* Criar árvore com apenas um nó
-	public ArvoreAVL(T raiz) {
-		this.raiz = raiz;
-		esq = null;
-		dir = null;
+	// Árvore com apenas um nó
+	public ArvoreAVL(Chave raiz) {
+		No noRaiz = new No(raiz);
+		this.raiz = noRaiz;
 	}
 
-	// Criar árvore com nós a esquerda e a direita
-	public ArvoreAVL(T raiz, ArvoreAVL arvEsq, ArvoreAVL arvDir) {
-		this.raiz = raiz;
-		this.esq = arvEsq;
-		this.dir = arvDir;
-	}*/
+	/*
+	 * Criar árvore com apenas um nó public ArvoreAVL(T raiz) { this.raiz = raiz;
+	 * esq = null; dir = null; } // Criar árvore com nós a esquerda e a direita
+	 * public ArvoreAVL(T raiz, ArvoreAVL arvEsq, ArvoreAVL arvDir) { this.raiz =
+	 * raiz; this.esq = arvEsq; this.dir = arvDir; }
+	 */
 
 	// Checa se a árvore é vazia
 	public boolean vazia() {
 		return (raiz == null);
 	}
 
-	// Checa se é folha
-	public boolean folha(No no) {
-		if (no.esq == null && no.dir == null) {
-			return true;
-		}
-		return false;
-	}
+	/*
+	 * // Checa se é folha public boolean folha(No no) { if (no.esq == null &&
+	 * no.dir == null) { return true; } return false; }
+	 */
 
-	// Calcula altura da árvore
-	public int calculaAltura(No no) {
-		if (no.esq == null && no.dir == null)
-			return 0;
-
-		int altEsq = 0, altDir = 0;
-
-		if (no.esq != null)
-			altEsq = this.calculaAltura(no.esq);
-
-		if (no.dir != null)
-			altEsq = this.calculaAltura(no.dir);
-
-		return 1 + Math.max(altEsq, altDir);
-	}
-	
+	/*
+	 * // Calcula altura da árvore public int calculaAltura(No no) { if (no.esq ==
+	 * null && no.dir == null) return 0;
+	 * 
+	 * int altEsq = 0, altDir = 0;
+	 * 
+	 * if (no.esq != null) altEsq = this.calculaAltura(no.esq);
+	 * 
+	 * if (no.dir != null) altEsq = this.calculaAltura(no.dir);
+	 * 
+	 * return 1 + Math.max(altEsq, altDir); }
+	 */
 
 	// Mostra árvore a partir do nó
-	public void mostra(No raiz) {
-
-		System.out.print("(" + raiz);
-
-		if (raiz.esq != null) {
-			mostra(raiz.esq);
-		}
-		if (raiz.dir != null) {
-			mostra(raiz.dir);
-		}
-
-		System.out.print(")");
+	public void mostra() {
+		mostra(raiz);
 	}
 
-	// TODO - Insere nó na árvore
-	public void insere(No no) {
+	private void mostra(No no) {
+		if (no == null)
+			return;
+
+		System.out.print("[");
+
+		//Primeiro mostra o lado esquerdo
+		mostra(no.esq);
+
+		// Imprime a chave do nó atual
+		System.out.print("<" + no.chave + ">");
+
+		// Chamada recursiva para a direita
+		mostra(no.dir);
+
+		System.out.print("]");
+	}
+
+	// Insere nó na árvore
+	public void insere(Chave chave) {
+		No no = new No(chave);
 
 		// Caso o inicial seja nulo
-		if (no == null) {
+		if (no.chave == null) {
 			throw new IllegalArgumentException("A chave fornecida é null!");
 		}
 
+		raiz = insere(raiz, chave);
+
+	}
+
+	private No insere(No no, Chave chave) {
+		// Caso base: encontrou a posição de inserção
+		if (no == null)
+			return new No(chave);
+
+		// se a chave inserida for menor que a atual
+		if (chave.compareTo(no.chave) < 0) { // Vai para esquerda
+			no.esq = insere(no.esq, chave);
+		}
+		// se a chave inserida for maior que a atual
+		else if (chave.compareTo(no.chave) > 0) { // Vai para direita
+			no.dir = insere(no.dir, chave);
+		}
+		// Caso tenha encontrado nó de mesma chave
+		else {
+			no.chave = chave;
+		}
+
+		return no;
 	}
 
 	// TODO balanceamento
