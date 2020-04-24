@@ -3,26 +3,23 @@
  * e no livro "Estrutura de Dados e Seus Algoritmos - 3ª edição" de Jayme Luiz Szwarcfiter e Lilian Markenzon*/
 package ArvoreAVL;
 
-public class ArvoreAVL<Chave extends Comparable<Chave>, Valor> {
+public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	private No raiz; //raiz da árvore
 
 	public class No {
 		private Chave chave; // Chave usada nas comparações.
-		private Valor valor; // Informação armazenada.
 		private No esq, dir; // Referências para subárvores esquerda e direita.
 
-		public No(Chave chave, Valor valor) {
+		public No(Chave chave) {
 			this.chave = chave;
-			this.valor = valor;
 			this.esq = null;
 			this.dir = null;
 		}
 
-		public No(Chave chave, Valor valor, No esq, No dir)
+		public No(Chave chave, No esq, No dir)
 		{
 			this.chave = chave;
-			this.valor = valor;
 			this.esq = esq;
 			this.dir = dir;
 		}
