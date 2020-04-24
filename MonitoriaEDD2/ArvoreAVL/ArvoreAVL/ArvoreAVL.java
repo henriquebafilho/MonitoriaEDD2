@@ -7,7 +7,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	private No raiz; //raiz da árvore
 
-	public class No {
+	private class No {
 		private Chave chave; // Chave usada nas comparações.
 		private No esq, dir; // Referências para subárvores esquerda e direita.
 
@@ -89,16 +89,20 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		System.out.print(")");
 	}
 
-	// TODO - Insere nó na árvore
-	public void insere(No no) {
-
-		// Caso o inicial seja nulo
-		if (no == null) {
-			throw new IllegalArgumentException("A chave fornecida é null!");
-		}
+	public void insere(Chave chave) {
+		No no = new No(chave);
+		
+		// TODO - insere
+		
+		/* Não tenho a mínima lembrança de como isso deveria funcionar.
+		 * 
+		 * Boa sorte.
+		 * - Mateus
+		 * 
+		 *  */
 
 	}
 
 	// TODO balanceamento
-
+	 
 }
