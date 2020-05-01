@@ -69,24 +69,20 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	public void mostra() {
 		mostra(raiz);
 	}
-
+	
 	private void mostra(No no) {
-		if (no == null)
-			return;
 
-		System.out.print("[");
-
-		//Primeiro mostra o lado esquerdo
-		mostra(no.esq);
-
-		// Imprime a chave do nó atual
-		System.out.print("<" + no.chave + ">");
-
-		// Chamada recursiva para a direita
-		mostra(no.dir);
-
-		System.out.print("]");
+		System.out.print("(" + no.chave);
+		
+		if (no.esq != null) {
+			mostra(no.esq);
+		}
+		if (no.dir != null) {
+			mostra(no.dir);
+		}
+		System.out.print(")");
 	}
+
 
 	// Insere nó na árvore
 	public void insere(Chave chave) {
