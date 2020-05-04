@@ -5,8 +5,9 @@ import ArvoreAVL.ArvoreAVL;
 public class Main {
 
 	public static void main(String[] args) {
-		ArvoreAVL<Integer> arv = new ArvoreAVL<Integer>(8);
+		ArvoreAVL<Integer> arv = new ArvoreAVL<Integer>();
 
+		arv.insere(8);
 		arv.insere(4);
 		arv.insere(12);
 		arv.insere(2);
@@ -24,7 +25,8 @@ public class Main {
 		arv.mostra();
 
 		// Mostra altura a partir da raiz
-		System.out.println("\n" + arv.calculaAltura(arv.getRaiz()));
+		System.out.println("\nAltura da árvore: " + arv.calculaAltura(arv.getRaiz()));
+		System.out.println("Número mínimo de nós: " + arv.calculaNumeroMinimoNos(arv.getRaiz()));
 
 	}
 

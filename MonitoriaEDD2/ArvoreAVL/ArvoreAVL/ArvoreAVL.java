@@ -127,7 +127,21 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		return no;
 	}
-
+	
+	//Calcula número mínimo de nós da árvore
+	public int calculaNumeroMinimoNos(No no) {
+		
+		int altura = calculaAltura(no);
+		
+		if(altura == 0) {
+			return 0;
+		}
+		else if(altura == 1) {
+			return 1;
+		}
+		return 1 + (altura - 1) + (altura - 2);
+	}
+	
 	// TODO balanceamento
 
 }
