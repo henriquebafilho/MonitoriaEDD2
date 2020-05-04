@@ -41,39 +41,50 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	 * public ArvoreAVL(T raiz, ArvoreAVL arvEsq, ArvoreAVL arvDir) { this.raiz =
 	 * raiz; this.esq = arvEsq; this.dir = arvDir; }
 	 */
+	
+	public No getRaiz() {
+		return this.raiz;
+	}
 
 	// Checa se a árvore é vazia
 	public boolean vazia() {
 		return (raiz == null);
 	}
 
-	/*
-	 * // Checa se é folha public boolean folha(No no) { if (no.esq == null &&
-	 * no.dir == null) { return true; } return false; }
-	 */
+	// Checa se é folha
+	public boolean folha(No no) {
+		if (no.esq == null && no.dir == null) {
+			return true;
+		}
+		return false;
+	}
 
-	/*
-	 * // Calcula altura da árvore public int calculaAltura(No no) { if (no.esq ==
-	 * null && no.dir == null) return 0;
-	 * 
-	 * int altEsq = 0, altDir = 0;
-	 * 
-	 * if (no.esq != null) altEsq = this.calculaAltura(no.esq);
-	 * 
-	 * if (no.dir != null) altEsq = this.calculaAltura(no.dir);
-	 * 
-	 * return 1 + Math.max(altEsq, altDir); }
-	 */
+	// Calcula altura da árvore
+	public int calculaAltura(No no) {
+
+		if (no.esq == null && no.dir == null)
+			return 0;
+
+		int altEsq = 0, altDir = 0;
+
+		if (no.esq != null)
+			altEsq = this.calculaAltura(no.esq);
+
+		if (no.dir != null)
+			altEsq = this.calculaAltura(no.dir);
+
+		return 1 + Math.max(altEsq, altDir);
+	}
 
 	// Mostra árvore a partir do nó
 	public void mostra() {
 		mostra(raiz);
 	}
-	
+
 	private void mostra(No no) {
 
 		System.out.print("(" + no.chave);
-		
+
 		if (no.esq != null) {
 			mostra(no.esq);
 		}
@@ -82,7 +93,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 		System.out.print(")");
 	}
-
 
 	// Insere nó na árvore
 	public void insere(Chave chave) {
