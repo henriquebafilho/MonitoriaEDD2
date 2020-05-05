@@ -41,7 +41,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	 * public ArvoreAVL(T raiz, ArvoreAVL arvEsq, ArvoreAVL arvDir) { this.raiz =
 	 * raiz; this.esq = arvEsq; this.dir = arvDir; }
 	 */
-	
+
 	public No getRaiz() {
 		return this.raiz;
 	}
@@ -84,12 +84,17 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	private void mostra(No no) {
 
 		System.out.print("(" + no.chave);
-
+		
 		if (no.esq != null) {
 			mostra(no.esq);
+		} else if (!folha(no)) {
+			System.out.print("( )");
 		}
+		
 		if (no.dir != null) {
 			mostra(no.dir);
+		}else if (!folha(no)) {
+			System.out.print("( )");
 		}
 		System.out.print(")");
 	}
@@ -127,19 +132,37 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		return no;
 	}
-	
-	//Calcula número mínimo de nós que a árvore deve ter para ser AVL
+
+	// Calcula número mínimo de nós que a árvore deve ter para ser AVL
 	public int calculaNumeroMinimoNos(No no) {
-		
+
 		int altura = calculaAltura(no);
-		
-		if(altura == 0) {
+
+		if (altura == 0) {
 			return 0;
-		}
-		else if(altura == 1) {
+		} else if (altura == 1) {
 			return 1;
 		}
 		return 1 + (altura - 1) + (altura - 2);
+	}
+	
+	//ROTAÇÕES
+	public void rotacaoDireita(No no) {
+		//Pega a primeira raiz antes da rotação
+		No raizFirst = new No(raiz.chave);
+		
+		raiz = raiz.esq;
+		raizFirst.esq = raiz.dir;
+		raiz.dir = raizFirst;
+	}
+	
+	public void rotacaoEsquerda(No no) {
+		//Pega a primeira raiz antes da rotação
+		No raizFirst = new No(raiz.chave);
+		
+		raiz = raiz.dir;
+		raizFirst.dir = raiz.esq;
+		raiz.esq = raizFirst;
 	}
 
 }
