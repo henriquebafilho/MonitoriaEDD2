@@ -29,9 +29,14 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		this.raiz = noRaiz;
 	}
 
-	//Retorna raiz da árvore
+	// Retorna raiz da árvore
 	public No getRaiz() {
 		return this.raiz;
+	}
+
+	// Retorna a chave da raiz
+	public Chave getChaveRaiz() {
+		return this.raiz.chave;
 	}
 
 	// Checa se a árvore é vazia
@@ -59,7 +64,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			altEsq = this.calculaAltura(no.esq);
 
 		if (no.dir != null)
-			altEsq = this.calculaAltura(no.dir);
+			altDir = this.calculaAltura(no.dir);
 
 		return 1 + Math.max(altEsq, altDir);
 	}
@@ -72,16 +77,16 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	private void mostra(No no) {
 
 		System.out.print("(" + no.chave);
-		
+
 		if (no.esq != null) {
 			mostra(no.esq);
 		} else if (!folha(no)) {
 			System.out.print("( )");
 		}
-		
+
 		if (no.dir != null) {
 			mostra(no.dir);
-		}else if (!folha(no)) {
+		} else if (!folha(no)) {
 			System.out.print("( )");
 		}
 		System.out.print(")");
@@ -133,55 +138,60 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 		return 1 + (altura - 1) + (altura - 2);
 	}
-	
-	//ROTAÇÕES
+
+	// ROTAÇÕES
 	public void rotacaoDireita(No no) {
-		//Armazena a primeira raiz antes da rotação
+		// Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(raiz.chave);
-		
+
 		raiz = raiz.esq;
 		raizFirst.esq = raiz.dir;
 		raiz.dir = raizFirst;
 	}
-	
+
 	public void rotacaoEsquerda(No no) {
-		//Armazena a primeira raiz antes da rotação
+		// Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(raiz.chave);
-		
+
 		raiz = raiz.dir;
 		raizFirst.dir = raiz.esq;
 		raiz.esq = raizFirst;
 	}
-	
+
 	public void rotacaoDuplaDireita(No no) {
-		//Armazena a primeira raiz antes da rotação
+		// Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(raiz.chave);
-		//Armazena a esquerda da raiz antes da rotação
+		// Armazena a esquerda da raiz antes da rotação
 		No raizEsq = new No(raiz.esq.chave);
-		
+
 		raizEsq.esq = raiz.esq.esq;
 		raizFirst.dir = raiz.dir;
-		
+
 		raiz = raiz.esq.dir;
 		raizEsq.dir = raiz.esq;
 		raiz.esq = raizEsq;
 		raizFirst.esq = raiz.dir;
-		raiz.dir = raizFirst;		
+		raiz.dir = raizFirst;
 	}
-	
+
 	public void rotacaoDuplaEsquerda(No no) {
-		//Armazena a primeira raiz antes da rotação
+		// Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(raiz.chave);
-		//Armazena a esquerda da raiz antes da rotação
+		// Armazena a esquerda da raiz antes da rotação
 		No raizDir = new No(raiz.dir.chave);
-		
+
 		raizDir.dir = raiz.dir.dir;
 		raizFirst.esq = raiz.esq;
-		
+
 		raiz = raiz.dir.esq;
 		raizDir.esq = raiz.dir;
 		raiz.dir = raizDir;
 		raizFirst.dir = raiz.esq;
 		raiz.esq = raizFirst;
+	}
+
+	// Balanceando a árvore
+	public void balancear() {
+
 	}
 }

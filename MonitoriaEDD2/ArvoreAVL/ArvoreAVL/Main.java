@@ -15,14 +15,12 @@ public class Main {
 		arv.insere(11);
 		arv.insere(25);
 		
-		arv.rotacaoDuplaEsquerda(arv.getRaiz());
+		//arv.rotacaoDuplaEsquerda(arv.getRaiz());
 		
 		arv.mostra();
 
-		// Mostra altura a partir da raiz
-		System.out.println("\nAltura da árvore: " + arv.calculaAltura(arv.getRaiz()));
-		System.out.println("Número mínimo de nós: " + arv.calculaNumeroMinimoNos(arv.getRaiz()));
-
+		System.out.println("\nChave da raiz: " + arv.getChaveRaiz());
+		System.out.println("Altura da árvore: " + arv.calculaAltura(arv.getRaiz()));
 	}
 
 }
