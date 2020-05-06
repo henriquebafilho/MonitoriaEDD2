@@ -16,32 +16,20 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			this.esq = null;
 			this.dir = null;
 		}
-
-		public No(Chave chave, No esq, No dir) {
-			this.chave = chave;
-			this.esq = esq;
-			this.dir = dir;
-		}
 	}
 
-	// Arvore vazia
+	// Cria árvore vazia
 	public ArvoreAVL() {
 		raiz = null;
 	}
 
-	// Árvore com apenas um nó
+	// Cria árvore com apenas um nó
 	public ArvoreAVL(Chave raiz) {
 		No noRaiz = new No(raiz);
 		this.raiz = noRaiz;
 	}
 
-	/*
-	 * Criar árvore com apenas um nó public ArvoreAVL(T raiz) { this.raiz = raiz;
-	 * esq = null; dir = null; } // Criar árvore com nós a esquerda e a direita
-	 * public ArvoreAVL(T raiz, ArvoreAVL arvEsq, ArvoreAVL arvDir) { this.raiz =
-	 * raiz; this.esq = arvEsq; this.dir = arvDir; }
-	 */
-
+	//Retorna raiz da árvore
 	public No getRaiz() {
 		return this.raiz;
 	}
@@ -76,7 +64,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return 1 + Math.max(altEsq, altDir);
 	}
 
-	// Mostra árvore a partir do nó
+	// Mostra árvore a partir da raiz
 	public void mostra() {
 		mostra(raiz);
 	}
@@ -196,5 +184,4 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		raizFirst.dir = raiz.esq;
 		raiz.esq = raizFirst;
 	}
-
 }
