@@ -189,9 +189,17 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		raizFirst.dir = raiz.esq;
 		raiz.esq = raizFirst;
 	}
+	
+	// Retorna fator de equilíbrio do nó
+	public int getFatorEquilibrio(No no) {
+		return (1 + calculaAltura(no.dir) - (1 + calculaAltura(no.esq)));
+	}
 
 	// Balanceando a árvore
-	public void balancear() {
-
+	public int balancear() {
+		
+		int fatorEquilibrio = (1 + calculaAltura(raiz.dir) - (1 + calculaAltura(raiz.esq)));
+		
+		return fatorEquilibrio;
 	}
 }

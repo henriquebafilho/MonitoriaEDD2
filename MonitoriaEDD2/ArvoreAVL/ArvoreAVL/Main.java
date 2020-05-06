@@ -21,6 +21,7 @@ public class Main {
 
 		System.out.println("\nChave da raiz: " + arv.getChaveRaiz());
 		System.out.println("Altura da árvore: " + arv.calculaAltura(arv.getRaiz()));
+		//System.out.println(arv.getFatorEquilibrio(arv.getRaiz()));
 	}
 
 }
