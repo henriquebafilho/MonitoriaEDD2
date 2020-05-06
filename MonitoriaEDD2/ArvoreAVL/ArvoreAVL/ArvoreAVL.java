@@ -148,7 +148,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	
 	//ROTAÇÕES
 	public void rotacaoDireita(No no) {
-		//Pega a primeira raiz antes da rotação
+		//Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(raiz.chave);
 		
 		raiz = raiz.esq;
@@ -157,12 +157,28 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	}
 	
 	public void rotacaoEsquerda(No no) {
-		//Pega a primeira raiz antes da rotação
+		//Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(raiz.chave);
 		
 		raiz = raiz.dir;
 		raizFirst.dir = raiz.esq;
 		raiz.esq = raizFirst;
+	}
+	
+	public void rotacaoDuplaDireita(No no) {
+		//Armazena a primeira raiz antes da rotação
+		No raizFirst = new No(raiz.chave);
+		//Armazena a esquerda da raiz antes da rotação
+		No raizEsq = new No(raiz.esq.chave);
+		raizEsq.esq = raiz.esq.esq;
+		raizFirst.dir = raiz.dir;
+		
+		raiz = raiz.esq.dir;
+		raizEsq.dir = raiz.esq;
+		raiz.esq = raizEsq;
+		raizFirst.esq = raiz.dir;
+		raiz.dir = raizFirst;		
+		
 	}
 
 }

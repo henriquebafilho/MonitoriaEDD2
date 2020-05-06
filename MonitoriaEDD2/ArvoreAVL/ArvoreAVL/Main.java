@@ -7,13 +7,15 @@ public class Main {
 	public static void main(String[] args) {
 		ArvoreAVL<Integer> arv = new ArvoreAVL<Integer>();
 		
-		arv.insere(10);
-		arv.insere(20);
 		arv.insere(30);
-		arv.insere(13);
-		arv.insere(22);
+		arv.insere(10);
+		arv.insere(35);
+		arv.insere(20);
+		arv.insere(11);
+		arv.insere(7);
+		arv.insere(25);
 		
-		arv.rotacaoEsquerda(arv.getRaiz());
+		arv.rotacaoDuplaDireita(arv.getRaiz());
 		
 		arv.mostra();
 
