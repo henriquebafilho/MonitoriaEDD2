@@ -183,7 +183,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 				System.out.println("Fazer rotação esquerda");
 			}
 		}
-		// se q < 1
+		// se q < -1
 		else {
 			// se a subárvore direita possui q > 0
 			if (getFatorEquilibrio(no.dir) > 0) {
@@ -245,5 +245,4 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		raizFirst.dir = raiz.esq;
 		raiz.esq = raizFirst;
 	}
-
 }
