@@ -36,6 +36,10 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	// Retorna a chave da raiz
 	public Chave getChaveRaiz() {
+		if (getRaiz() == null) {
+			System.out.println("A raiz é nula");
+			return null;
+		}
 		return this.raiz.chave;
 	}
 
@@ -46,27 +50,12 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	// Checa se é folha
 	public boolean folha(No no) {
-		if (no.esq == null && no.dir == null) {
+		if (no == null) {
+			return false;
+		} else if (no.esq == null && no.dir == null) {
 			return true;
 		}
 		return false;
-	}
-
-	// Calcula altura da árvore
-	public int calculaAltura(No no) {
-
-		if (no.esq == null && no.dir == null)
-			return 0;
-
-		int altEsq = 0, altDir = 0;
-
-		if (no.esq != null)
-			altEsq = this.calculaAltura(no.esq);
-
-		if (no.dir != null)
-			altDir = this.calculaAltura(no.dir);
-
-		return 1 + Math.max(altEsq, altDir);
 	}
 
 	// Mostra árvore a partir da raiz
@@ -75,6 +64,10 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	}
 
 	private void mostra(No no) {
+
+		if (no == null) {
+			System.out.println("A árvore é nula");
+		}
 
 		System.out.print("(" + no.chave);
 
@@ -107,15 +100,16 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	private No insere(No no, Chave chave) {
 		// Caso base: encontrou a posição de inserção
-		if (no == null)
+		if (no == null) {
 			return new No(chave);
+		}
 
-		// se a chave inserida for menor que a atual
-		if (chave.compareTo(no.chave) < 0) { // Vai para esquerda
+		// se a chave inserida for menor que a atual, vai para esquerda
+		if (chave.compareTo(no.chave) < 0) {
 			no.esq = insere(no.esq, chave);
 		}
-		// se a chave inserida for maior que a atual
-		else if (chave.compareTo(no.chave) > 0) { // Vai para direita
+		// se a chave inserida for maior que a atual, vai para direita
+		else if (chave.compareTo(no.chave) > 0) {
 			no.dir = insere(no.dir, chave);
 		}
 		// Caso tenha encontrado nó de mesma chave
@@ -124,6 +118,24 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 
 		return no;
+	}
+
+	// Calcula altura da árvore
+	public int calculaAltura(No no) {
+
+		if (folha(no) || no == null) {
+			return 0;
+		}
+
+		int altEsq = 0, altDir = 0;
+
+		if (no.esq != null) {
+			altEsq = this.calculaAltura(no.esq);
+		}
+		if (no.dir != null) {
+			altDir = this.calculaAltura(no.dir);
+		}
+		return 1 + Math.max(altEsq, altDir);
 	}
 
 	// Calcula número mínimo de nós que a árvore deve ter para ser AVL
@@ -137,6 +149,50 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			return 1;
 		}
 		return 1 + (altura - 1) + (altura - 2);
+	}
+
+	// Retorna fator de equilíbrio do nó
+	public int getFatorEquilibrio(No no) {
+		if (no != null) {
+			return (1 + calculaAltura(no.dir) - (1 + calculaAltura(no.esq)));
+		}
+		return 0;
+	}
+
+	// Balanceando a árvore
+	public void balancear(No no) {
+		// fator equilibrio = q
+		int fatorEquilibrio = getFatorEquilibrio(raiz);
+
+		if (no == null) {
+			System.out.println("Não foi possível realizar o balanceamento pois o nó inserido é nulo!");
+			return;
+		}
+
+		// Se -1 <= q <= 1
+		if (fatorEquilibrio >= -1 && fatorEquilibrio <= 1) {
+			System.out.println("A árvore é balanceada!");
+		}
+
+		// se q > 1
+		if (fatorEquilibrio > 1) {
+			// se a subárvore direita possui q < 0
+			if (getFatorEquilibrio(no.dir) < 0) {
+				System.out.println("Fazer rotação dupla à esquerda");
+			} else {
+				System.out.println("Fazer rotação esquerda");
+			}
+		}
+		// se q < 1
+		else {
+			// se a subárvore direita possui q > 0
+			if (getFatorEquilibrio(no.dir) > 0) {
+				System.out.println("Fazer rotação dupla à direita");
+			} else {
+				System.out.println("Fazer rotação direita");
+			}
+		}
+
 	}
 
 	// ROTAÇÕES
@@ -189,17 +245,5 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		raizFirst.dir = raiz.esq;
 		raiz.esq = raizFirst;
 	}
-	
-	// Retorna fator de equilíbrio do nó
-	public int getFatorEquilibrio(No no) {
-		return (1 + calculaAltura(no.dir) - (1 + calculaAltura(no.esq)));
-	}
 
-	// Balanceando a árvore
-	public int balancear() {
-		
-		int fatorEquilibrio = (1 + calculaAltura(raiz.dir) - (1 + calculaAltura(raiz.esq)));
-		
-		return fatorEquilibrio;
-	}
 }
