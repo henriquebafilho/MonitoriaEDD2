@@ -52,7 +52,8 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	public boolean folha(No no) {
 		if (no == null) {
 			return false;
-		} else if (no.esq == null && no.dir == null) {
+		}
+		else if (no.esq == null && no.dir == null) {
 			return true;
 		}
 		return false;
@@ -74,16 +75,39 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		if (no.esq != null) {
 			mostra(no.esq);
-		} else if (!folha(no)) {
+		}
+		else if (!folha(no)) {
 			System.out.print("( )");
 		}
 
 		if (no.dir != null) {
 			mostra(no.dir);
-		} else if (!folha(no)) {
+		}
+		else if (!folha(no)) {
 			System.out.print("( )");
 		}
 		System.out.print(")");
+	}
+
+	// Conta quantos nós tem na árvore
+	public int contaNos(No no) {
+
+		if (no == null) {
+			return 0;
+		}
+
+		if ((raiz.esq == null) && (raiz.dir == null))
+			return 1;
+
+		int nosEsq = 0, nosDir = 0;
+
+		if (no.esq != null)
+			nosEsq = contaNos(no.esq);
+
+		if (no.dir != null)
+			nosDir = contaNos(no.dir);
+
+		return 1 + nosEsq + nosDir;
 	}
 
 	// Insere nó na árvore
@@ -146,7 +170,8 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		if (altura == 0) {
 			return 0;
-		} else if (altura == 1) {
+		}
+		else if (altura == 1) {
 			return 1;
 		}
 		return 1 + (altura - 1) + (altura - 2);
@@ -170,6 +195,9 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	public void balancear(No no) {
 		// q = fator de equilíbrio
 		int q = getFatorEquilibrio(no);
+		int qtdNos = contaNos(raiz);
+		int contador = 0;
+		No desregulado = new No(null);
 
 		if (no == null) {
 			System.out.println("Não foi possível realizar o balanceamento pois o nó inserido é nulo!");
@@ -178,26 +206,11 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		System.out.println("O fator de equilíbrio de " + no.chave + " é " + q);
 
-		// se q > 1
-		if (q < -1) {
-			// se a subárvore direita possui q < 0
-			if (getFatorEquilibrio(no.dir) > 0) {
-				System.out.println("Rotação dupla esquerda");
-				rotacaoDuplaEsquerda(no);
-			} else {
-				System.out.println("Rotação esquerda");
-				rotacaoEsquerda(no);
-			}
-		} // se q < -1
-		else if (q > 1) {
-			// se as subárvore direita possui q>0
-			if (getFatorEquilibrio(no.dir) < 0) {
-				System.out.println("Rotação dupla direita");
-				rotacaoDuplaDireita(no);
-			} else {
-				System.out.println("Rotação direita");
-				rotacaoDireita(no);
-			}
+		contador += 1;
+
+		// Armazena o último nó desregulado
+		if (q > 1 || q < -1) {
+			desregulado = no;
 		}
 
 		if (no.esq != null) {
@@ -207,7 +220,43 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		if (no.dir != null) {
 			balancear(no.dir);
 		}
-		
+
+		// Se já percorreu a árvore inteira
+		if (contador == qtdNos) {
+			if (desregulado == null) {
+				System.out.println("A árvore está balanceada!");
+			}
+			else {
+				escolheRotacao(desregulado, getFatorEquilibrio(desregulado));
+			}
+		}
+
+	}
+
+	private void escolheRotacao(No no, int q) {
+		if (q < -1) {
+			// se a subárvore direita possui q < 0
+			if (getFatorEquilibrio(no.dir) > 0) {
+				System.out.println("Rotação dupla esquerda");
+				rotacaoDuplaEsquerda(no);
+			}
+			else {
+				System.out.println("Rotação esquerda");
+				rotacaoEsquerda(no);
+			}
+		}
+		else if (q > 1) {
+			// se as subárvore direita possui q>0
+			if (getFatorEquilibrio(no.dir) < 0) {
+				System.out.println("Rotação dupla direita");
+				rotacaoDuplaDireita(no);
+			}
+			else {
+				System.out.println("Rotação direita");
+				rotacaoDireita(no);
+			}
+		}
+
 	}
 
 	// ROTAÇÕES
