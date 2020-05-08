@@ -8,12 +8,13 @@ public class Main {
 		ArvoreAVL<Integer> arv = new ArvoreAVL<Integer>();
 		
 		
-		arv.insere(30);
+		arv.insere(15);
+		arv.insere(8);
+		arv.insere(23);
+		arv.insere(2);
+		arv.insere(12);
 		arv.insere(20);
-		arv.insere(22);
-		arv.insere(10);
-		arv.insere(13);
-		
+		arv.insere(18);
 		
 		arv.mostra();
 		
