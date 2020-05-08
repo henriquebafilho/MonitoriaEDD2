@@ -67,6 +67,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		if (no == null) {
 			System.out.println("A árvore é nula");
+			return;
 		}
 
 		System.out.print("(" + no.chave);
@@ -124,7 +125,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	public int calculaAltura(No no) {
 
 		if (folha(no) || no == null) {
-			return 0;
+			return -1;
 		}
 
 		int altEsq = 0, altDir = 0;
@@ -153,46 +154,60 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	// Retorna fator de equilíbrio do nó
 	public int getFatorEquilibrio(No no) {
-		if (no != null) {
-			return (1 + calculaAltura(no.dir) - (1 + calculaAltura(no.esq)));
+
+		int esq = calculaAltura(no.esq);
+		int dir = calculaAltura(no.dir);
+
+		// Fator de equilíbrio = tamanho da árvore esquerda - direita
+		if (no != null && !folha(no)) {
+			return esq - dir;
 		}
+
 		return 0;
 	}
 
 	// Balanceando a árvore
 	public void balancear(No no) {
-		// fator equilibrio = q
-		int fatorEquilibrio = getFatorEquilibrio(raiz);
+		// q = fator de equilíbrio
+		int q = getFatorEquilibrio(no);
 
 		if (no == null) {
 			System.out.println("Não foi possível realizar o balanceamento pois o nó inserido é nulo!");
 			return;
 		}
 
-		// Se -1 <= q <= 1
-		if (fatorEquilibrio >= -1 && fatorEquilibrio <= 1) {
-			System.out.println("A árvore é balanceada!");
-		}
+		System.out.println("O fator de equilíbrio de " + no.chave + " é " + q);
 
 		// se q > 1
-		if (fatorEquilibrio > 1) {
+		if (q < -1) {
 			// se a subárvore direita possui q < 0
-			if (getFatorEquilibrio(no.dir) < 0) {
-				System.out.println("Fazer rotação dupla à esquerda");
-			} else {
-				System.out.println("Fazer rotação esquerda");
-			}
-		}
-		// se q < -1
-		else {
-			// se a subárvore direita possui q > 0
 			if (getFatorEquilibrio(no.dir) > 0) {
-				System.out.println("Fazer rotação dupla à direita");
+				System.out.println("Rotação dupla esquerda");
+				rotacaoDuplaEsquerda(no);
 			} else {
-				System.out.println("Fazer rotação direita");
+				System.out.println("Rotação esquerda");
+				rotacaoEsquerda(no);
+			}
+		} // se q < -1
+		else if (q > 1) {
+			// se as subárvore direita possui q>0
+			if (getFatorEquilibrio(no.dir) < 0) {
+				System.out.println("Rotação dupla direita");
+				rotacaoDuplaDireita(no);
+			} else {
+				System.out.println("Rotação direita");
+				rotacaoDireita(no);
 			}
 		}
 
+		if (no.esq != null) {
+			balancear(no.esq);
+		}
+
+		if (no.dir != null) {
+			balancear(no.dir);
+		}
+		
 	}
 
 	// ROTAÇÕES
