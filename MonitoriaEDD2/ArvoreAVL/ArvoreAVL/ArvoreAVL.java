@@ -207,13 +207,17 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		// Se já percorreu a árvore inteira (contador == qtdNos)
 		if (desregulado.chave == null) {
 			System.out.println("A árvore está balanceada!");
+			return;
 		} else {
 			escolheRotacao(desregulado, getFatorEquilibrio(desregulado));
 		}
+
+		// Ao final de toda rotação, volta para a raiz para checar se há outra rotação a
+		// fazer
+		balancear(raiz);
 	}
 
 	private No obterDesregulado(No no) {
-
 		// q = fator de equilíbrio
 		int q = getFatorEquilibrio(no);
 		int qtdNos = contaNos(raiz);
@@ -245,6 +249,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	}
 
 	private void escolheRotacao(No no, int q) {
+
 		System.out.println("O NÓ DESREGULADO É: " + no.chave);
 
 		if (q < -1) {
@@ -276,23 +281,18 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		// Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(no.chave);
 
-		raiz = raiz.esq;
-		raizFirst.esq = raiz.dir;
-		raiz.dir = raizFirst;
-		
-		// Ao final de toda rotação, volta para a raiz para checar se há outra rotação a fazer
-		balancear(raiz);
+		no = no.esq;
+		raizFirst.esq = no.dir;
+		no.dir = raizFirst;
 	}
 
 	public void rotacaoEsquerda(No no) {
 		// Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(no.chave);
 
-		raiz = raiz.dir;
-		raizFirst.dir = raiz.esq;
-		raiz.esq = raizFirst;
-		
-		balancear(raiz);
+		no = no.dir;
+		raizFirst.dir = no.esq;
+		no.esq = raizFirst;
 	}
 
 	// Caso o nó desregulado não esteja na raiz
@@ -300,43 +300,36 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		// Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(desregulado.chave);
 
-		desregulado = desregulado.esq;
-		raizFirst.esq = desregulado.dir;
-		desregulado.dir = raizFirst;
+		rotacaoDireita(desregulado);
 
 		// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
 		if (paiDesregulado.chave.compareTo(desregulado.chave) > 0) {
-			paiDesregulado.esq = desregulado;
+			paiDesregulado.esq = desregulado.esq;
 		} else {
-			paiDesregulado.dir = desregulado;
+			paiDesregulado.dir = desregulado.dir;
 		}
-		
-		balancear(raiz);
 	}
 
 	public void rotacaoEsquerda(No paiDesregulado, No desregulado) {
 		// Armazena a primeira raiz da árvore antes da rotação
 		No raizFirst = new No(desregulado.chave);
-		
-		desregulado = desregulado.dir;
-		raizFirst.dir = desregulado.esq;
-		desregulado.esq = raizFirst;
+
+		rotacaoEsquerda(desregulado);
 
 		// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
 		if (paiDesregulado.chave.compareTo(desregulado.chave) > 0) {
-			paiDesregulado.esq = desregulado;
+			paiDesregulado.esq = desregulado.esq;
 		} else {
-			paiDesregulado.dir = desregulado;
+			paiDesregulado.dir = desregulado.dir;
 		}
-		
-		balancear(raiz);
 	}
 
+	// Caso o nó esteja na raiz
 	public void rotacaoDuplaDireita(No no) {
 		// Armazena a primeira raiz antes da rotação
-		No raizFirst = new No(raiz.chave);
+		No raizFirst = new No(no.chave);
 		// Armazena a esquerda da raiz antes da rotação
-		No raizEsq = new No(raiz.esq.chave);
+		No raizEsq = new No(no.esq.chave);
 
 		raizEsq.esq = raiz.esq.esq;
 		raizFirst.dir = raiz.dir;
@@ -346,15 +339,13 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		raiz.esq = raizEsq;
 		raizFirst.esq = raiz.dir;
 		raiz.dir = raizFirst;
-		
-		balancear(raiz);
 	}
 
 	public void rotacaoDuplaEsquerda(No no) {
 		// Armazena a primeira raiz antes da rotação
-		No raizFirst = new No(raiz.chave);
+		No raizFirst = new No(no.chave);
 		// Armazena a esquerda da raiz antes da rotação
-		No raizDir = new No(raiz.dir.chave);
+		No raizDir = new No(no.dir.chave);
 
 		raizDir.dir = raiz.dir.dir;
 		raizFirst.esq = raiz.esq;
@@ -364,7 +355,9 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		raiz.dir = raizDir;
 		raizFirst.dir = raiz.esq;
 		raiz.esq = raizFirst;
-		
-		balancear(raiz);
+	}
+
+	public void rde(No no) {
+
 	}
 }

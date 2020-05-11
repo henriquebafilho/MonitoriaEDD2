@@ -35,11 +35,13 @@ public class Main {
 		arv.insere(22);
 		*/
 		
+		
 		arv.insere(10);
 		arv.insere(8);
 		arv.insere(15);
 		arv.insere(27);
 		arv.insere(49);
+		
 		
 		//Rotação Dupla Esquerda
 		/*
