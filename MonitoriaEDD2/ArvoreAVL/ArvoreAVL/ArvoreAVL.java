@@ -34,6 +34,14 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return this.raiz;
 	}
 
+	public No raizEsquerda() {
+		return raiz.esq;
+	}
+
+	public No raizDireita() {
+		return raiz.dir;
+	}
+
 	// Retorna a chave da raiz
 	public Chave getChaveRaiz() {
 		if (getRaiz() == null) {
@@ -192,6 +200,18 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return 0;
 	}
 
+	// Balanceando a árvore
+	public void balancear(No no) {
+		No desregulado = obterDesregulado(no);
+
+		// Se já percorreu a árvore inteira (contador == qtdNos)
+		if (desregulado.chave == null) {
+			System.out.println("A árvore está balanceada!");
+		} else {
+			escolheRotacao(desregulado, getFatorEquilibrio(desregulado));
+		}
+	}
+
 	private No obterDesregulado(No no) {
 
 		// q = fator de equilíbrio
@@ -224,21 +244,9 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	}
 
-	// Balanceando a árvore
-	public void balancear(No no) {
-		No desregulado = obterDesregulado(no);
-
-		// Se já percorreu a árvore inteira (contador == qtdNos)
-		if (desregulado.chave == null) {
-			System.out.println("A árvore está balanceada!");
-		} else {
-			escolheRotacao(desregulado, getFatorEquilibrio(desregulado));
-		}
-	}
-
 	private void escolheRotacao(No no, int q) {
 		System.out.println("O NÓ DESREGULADO É: " + no.chave);
-		
+
 		if (q < -1) {
 			// se a subárvore direita possui q < 0
 			if (getFatorEquilibrio(no.dir) > 0) {
@@ -255,38 +263,73 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 				rotacaoDuplaDireita(no);
 			} else {
 				System.out.println("Rotação direita");
-				rotacaoDireita(no);
+				// Mudar parametros
+				rotacaoDireita(null, no);
 			}
 		}
-
 	}
 
 	// ROTAÇÕES
-	public void rotacaoDireita(No paiDesregulado, No desregulado) {
-		// Armazena a primeira raiz antes da rotação
-		No raizFirst = new No(desregulado.chave);
 
-		// Caso o nó desregulado esteja na raiz
-		if(paiDesregulado.chave == null) {
-			raiz = raiz.esq;
-			raizFirst.esq = raiz.dir;
-			raiz.dir = raizFirst;
-		}
-		// Caso o nó desregulado tenha um pai
-		else {
-			desregulado = desregulado.esq;
-			raizFirst.esq = desregulado.dir;
-			desregulado.dir = raizFirst;
-		}
+	// Caso o nó desregulado esteja na raiz
+	public void rotacaoDireita(No no) {
+		// Armazena a primeira raiz antes da rotação
+		No raizFirst = new No(no.chave);
+
+		raiz = raiz.esq;
+		raizFirst.esq = raiz.dir;
+		raiz.dir = raizFirst;
+		
+		// Ao final de toda rotação, volta para a raiz para checar se há outra rotação a fazer
+		balancear(raiz);
 	}
 
 	public void rotacaoEsquerda(No no) {
 		// Armazena a primeira raiz antes da rotação
-		No raizFirst = new No(raiz.chave);
+		No raizFirst = new No(no.chave);
 
 		raiz = raiz.dir;
 		raizFirst.dir = raiz.esq;
 		raiz.esq = raizFirst;
+		
+		balancear(raiz);
+	}
+
+	// Caso o nó desregulado não esteja na raiz
+	public void rotacaoDireita(No paiDesregulado, No desregulado) {
+		// Armazena a primeira raiz antes da rotação
+		No raizFirst = new No(desregulado.chave);
+
+		desregulado = desregulado.esq;
+		raizFirst.esq = desregulado.dir;
+		desregulado.dir = raizFirst;
+
+		// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
+		if (paiDesregulado.chave.compareTo(desregulado.chave) > 0) {
+			paiDesregulado.esq = desregulado;
+		} else {
+			paiDesregulado.dir = desregulado;
+		}
+		
+		balancear(raiz);
+	}
+
+	public void rotacaoEsquerda(No paiDesregulado, No desregulado) {
+		// Armazena a primeira raiz da árvore antes da rotação
+		No raizFirst = new No(desregulado.chave);
+		
+		desregulado = desregulado.dir;
+		raizFirst.dir = desregulado.esq;
+		desregulado.esq = raizFirst;
+
+		// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
+		if (paiDesregulado.chave.compareTo(desregulado.chave) > 0) {
+			paiDesregulado.esq = desregulado;
+		} else {
+			paiDesregulado.dir = desregulado;
+		}
+		
+		balancear(raiz);
 	}
 
 	public void rotacaoDuplaDireita(No no) {
@@ -303,6 +346,8 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		raiz.esq = raizEsq;
 		raizFirst.esq = raiz.dir;
 		raiz.dir = raizFirst;
+		
+		balancear(raiz);
 	}
 
 	public void rotacaoDuplaEsquerda(No no) {
@@ -319,5 +364,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		raiz.dir = raizDir;
 		raizFirst.dir = raiz.esq;
 		raiz.esq = raizFirst;
+		
+		balancear(raiz);
 	}
 }
