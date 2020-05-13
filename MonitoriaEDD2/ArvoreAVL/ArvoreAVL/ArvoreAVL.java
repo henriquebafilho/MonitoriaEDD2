@@ -305,22 +305,64 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	// ROTAÇÕES
 	// Caso o nó desregulado esteja na raiz
-	public void rotacaoDireita(No no) {
+	public No rotacaoDireita(No no) {
 		// Armazena a primeira raiz antes da rotação
-		No raizFirst = new No(raiz.chave);
+		No raizFirst = new No(null);
+		// Armazena a nova raiz da árvore rotacionada
+		No novaRaiz = new No(null);
 
-		raiz = raiz.esq;
-		raizFirst.esq = raiz.dir;
-		raiz.dir = raizFirst;
+		// Se o nó for igual a raiz
+		if (no.chave == raiz.chave) {
+			raizFirst = raiz;
+
+			// Atualiza a raiz
+			raiz = raiz.esq;
+			novaRaiz = raiz;
+
+			raizFirst.esq = raiz.dir;
+			raiz.dir = raizFirst;
+		} 
+		else {
+			raizFirst = no;
+
+			// Atualiza a raiz
+			no = no.esq;
+			novaRaiz = no;
+
+			raizFirst.esq = no.dir;
+			no.dir = raizFirst;
+		}
+		return novaRaiz;
 	}
 
-	public void rotacaoEsquerda(No no) {
+	public No rotacaoEsquerda(No no) {
 		// Armazena a primeira raiz antes da rotação
-		No raizFirst = new No(raiz.chave);
+		No raizFirst = new No(null);
+		// Armazena a nova raiz da árvore rotacionada
+		No novaRaiz = new No(null);
 
-		raiz = raiz.dir;
-		raizFirst.dir = raiz.esq;
-		raiz.esq = raizFirst;
+		// Se o nó for igual a raiz
+		if (no.chave == raiz.chave) {
+			raizFirst = raiz;
+			
+			// Atualiza a raiz
+			raiz = raiz.dir;
+			novaRaiz = raiz;
+			
+			raizFirst.dir = raiz.esq;
+			raiz.esq = raizFirst;
+		} 
+		else {
+			raizFirst = no;
+			
+			// Atualiza a raiz
+			no = no.dir;
+			novaRaiz = no;
+			
+			raizFirst.dir = no.esq;
+			no.esq = raizFirst;
+		}
+		return novaRaiz;
 	}
 
 	// Caso o nó desregulado não esteja na raiz
