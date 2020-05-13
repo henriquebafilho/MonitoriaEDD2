@@ -27,21 +27,21 @@ public class Main {
 		*/
 		
 		//Rotação esquerda
-		/*
+		
 		arv.insere(10);
 		arv.insere(20);
 		arv.insere(30);
 		arv.insere(13);
 		arv.insere(22);
-		*/
 		
-		/*
-		arv.insere(10);
-		arv.insere(8);
-		arv.insere(15);
-		arv.insere(27);
-		arv.insere(49);
-		*/
+	
+		
+//		arv.insere(10);
+//		arv.insere(8);
+//		arv.insere(15);
+//		arv.insere(27);
+//		arv.insere(49);
+		
 		
 		//Rotação Dupla Esquerda
 		/*
@@ -56,6 +56,7 @@ public class Main {
 		
 		//Rotação Dupla Direita
 		
+		/*
 		arv.insere(30);
 		arv.insere(10);
 		arv.insere(35);
@@ -63,7 +64,7 @@ public class Main {
 		arv.insere(20);
 		arv.insere(11);
 		arv.insere(25);
-		
+		*/
 		
 		arv.mostra();
 		
@@ -72,7 +73,11 @@ public class Main {
 		
 		System.out.println("");
 		
-		//arv.rotacaoEsquerda(arv.getRaiz(), arv.raizDireita());
+		//arv.balancear(arv.getRaiz());
+		
+		//arv.rotacaoDireita(arv.getRaiz());
+		
+		arv.rotacaoEsquerda(arv.getRaiz());
 		
 		arv.mostra();
 	}
