@@ -244,8 +244,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			desregulado = obterDesregulado(no.dir);
 		}
 
-		System.out.println("O DESREGULADO DO CARALHO É O " + desregulado.chave);
-
 		return desregulado;
 	}
 
@@ -289,23 +287,32 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 				rotacaoDuplaEsquerda(no);
 			} else {
 				System.out.println("Rotação esquerda");
-				rotacaoEsquerda(no);
+				if (pai.chave != null) {
+					rotacaoEsquerda(no, pai);
+				} else {
+					rotacaoEsquerda(no);
+				}
+
 			}
 		} else if (q > 1) {
 			// se as subárvore direita possui q>0
 			if (getFatorEquilibrio(no.esq) < 0) {
 				System.out.println("Rotação dupla direita");
-				rotacaoEsquerda(no, pai);
+				rotacaoDuplaDireita(no);
 			} else {
 				System.out.println("Rotação direita");
-				rotacaoDireita(no, pai);
+				if (pai.chave != null) {
+					rotacaoDireita(no, pai);
+				} else {
+					rotacaoDireita(no);
+				}
 			}
 		}
 	}
 
 	// ROTAÇÕES
 	// Caso o nó desregulado esteja na raiz
-	public No rotacaoDireita(No no) {
+	public void rotacaoDireita(No no) {
 		// Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(null);
 		// Armazena a nova raiz da árvore rotacionada
@@ -319,8 +326,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		raizFirst.esq = raiz.dir;
 		raiz.dir = raizFirst;
-
-		return novaRaiz;
 	}
 
 	// Caso o nó desregulado não esteja na raiz
@@ -329,7 +334,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		No raizFirst = new No(desregulado.chave);
 		// Armazena a nova raiz da árvore
 		No novaRaiz = new No(null);
-		
+
 		novaRaiz = desregulado.esq;
 		novaRaiz.dir = raizFirst;
 		raizFirst.esq = null;
@@ -343,7 +348,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	}
 
 	// Se o nó for igual a raiz
-	public No rotacaoEsquerda(No no) {
+	public void rotacaoEsquerda(No no) {
 		// Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(null);
 		// Armazena a nova raiz da árvore rotacionada
@@ -357,8 +362,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		raizFirst.dir = raiz.esq;
 		raiz.esq = raizFirst;
-
-		return novaRaiz;
 	}
 
 	public void rotacaoEsquerda(No desregulado, No paiDesregulado) {
