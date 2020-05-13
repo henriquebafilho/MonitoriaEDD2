@@ -15,12 +15,12 @@ public class Main {
 //		arv.insere(10);
 //		arv.insere(13);
 
-//		arv.insere(27);
-//		arv.insere(15);
-//		arv.insere(49);
-//		arv.insere(10);
-//		arv.insere(8);
-		
+		arv.insere(27);
+		arv.insere(15);
+		arv.insere(49);
+		arv.insere(10);
+		arv.insere(8);
+
 //		arv.insere(9);
 //		arv.insere(8);
 
@@ -37,7 +37,7 @@ public class Main {
 //		arv.insere(15);
 //		arv.insere(27);
 //		arv.insere(49);
-		
+
 //		arv.insere(8);
 //		arv.insere(9);
 
@@ -72,6 +72,10 @@ public class Main {
 
 		// arv.rotacaoDireita(arv.getRaiz());
 
+		arv.rotacaoDireita(arv.getRaizEsquerda(), arv.getRaiz());
+		
+		// arv.rotacaoEsquerda(arv.getRaizDireita(), arv.getRaiz());
+		
 		// arv.rotacaoEsquerda(arv.getRaiz());
 
 		arv.mostra();
