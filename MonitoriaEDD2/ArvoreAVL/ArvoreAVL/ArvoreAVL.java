@@ -137,9 +137,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			return false;
 		}
 
-		System.out.println("Chave procurada: " + no.chave);
-		System.out.println("Chave atual: " + chave);
-
 		// Calcula se a chave prcurada é maior, menor ou igual à atual
 		int contador = chave.compareTo(no.chave);
 

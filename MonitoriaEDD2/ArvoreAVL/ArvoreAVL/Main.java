@@ -78,7 +78,7 @@ public class Main {
 		
 		// arv.rotacaoEsquerda(arv.getRaiz());
 		
-		// System.out.println(arv.busca(2000));
+		 // System.out.println(arv.busca(27));
 
 		arv.mostra();
 	}
