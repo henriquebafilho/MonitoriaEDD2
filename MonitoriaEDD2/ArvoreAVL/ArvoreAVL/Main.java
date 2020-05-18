@@ -9,8 +9,8 @@ public class Main {
 
 		//Árvores Balanceadas
 		
-		arv.insere(8);
-		arv.insere(9);
+//		arv.insere(8);
+//		arv.insere(9);
 		
 		// Rotação direita
 
