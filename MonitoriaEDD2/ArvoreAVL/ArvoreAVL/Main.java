@@ -7,6 +7,11 @@ public class Main {
 	public static void main(String[] args) {
 		ArvoreAVL<Integer> arv = new ArvoreAVL<Integer>();
 
+		//Árvores Balanceadas
+		
+		arv.insere(8);
+		arv.insere(9);
+		
 		// Rotação direita
 
 //		arv.insere(30);
@@ -19,9 +24,6 @@ public class Main {
 //		arv.insere(15);
 //		arv.insere(49);
 //		arv.insere(10);
-//		arv.insere(8);
-
-//		arv.insere(9);
 //		arv.insere(8);
 
 		// Rotação esquerda
@@ -37,9 +39,11 @@ public class Main {
 //		arv.insere(15);
 //		arv.insere(27);
 //		arv.insere(49);
-
+		
+//		arv.insere(5);
+//		arv.insere(6);
+//		arv.insere(7);
 //		arv.insere(8);
-//		arv.insere(9);
 
 		// Rotação Dupla Esquerda
 
@@ -63,7 +67,7 @@ public class Main {
 
 		arv.mostra();
 
-		System.out.println("\nChave da raiz: " + arv.getChaveRaiz());
+		System.out.println("\nRaiz: " + arv.getChaveRaiz());
 		System.out.println("Altura da árvore: " + arv.calculaAltura(arv.getRaiz()));
 
 		System.out.println("");
@@ -79,8 +83,6 @@ public class Main {
 		// arv.rotacaoEsquerda(arv.getRaiz());
 		
 		 // System.out.println(arv.busca(27));
-
-		arv.mostra();
 	}
 
 }

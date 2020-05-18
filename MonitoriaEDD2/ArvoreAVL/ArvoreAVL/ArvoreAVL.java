@@ -69,6 +69,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	// Mostra árvore a partir da raiz
 	public void mostra() {
 		mostra(raiz);
+		System.out.println();
 	}
 
 	private void mostra(No no) {
@@ -242,10 +243,10 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	}
 
 	// Balanceando a árvore
-	public void balancear(No no) {
-		No desregulado = obterDesregulado(no);
+	public void balancear(No raiz) {
+		No desregulado = obterDesregulado(raiz);
 
-		// Se já percorreu a árvore inteira (contador == qtdNos)
+		// Se não tem nó desregulado, a árvore está balanceada
 		if (desregulado.chave == null) {
 			System.out.println("A árvore está balanceada!");
 			return;
@@ -255,15 +256,19 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			escolheRotacao(desregulado, paiDesregulado, getFatorEquilibrio(desregulado));
 		}
 
+		mostra();
+		
 		// Depois de toda rotação, checa se há outra rotação a fazer
-		// balancear(raiz);
+		balancear(this.raiz);
 	}
 
 	private No obterDesregulado(No no) {
 
 		No desregulado = obterDesregulado(no, null);
 
-		System.out.println("O desregulado é o: " + desregulado.chave);
+		if(desregulado.chave != null) {
+			System.out.println("O desregulado é o: " + desregulado.chave);
+		}
 
 		return desregulado;
 
@@ -290,11 +295,11 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 
 		if (atual.esq != null) {
-			desregulado = obterDesregulado(atual.esq, desregulado);
+			obterDesregulado(atual.esq, desregulado);
 		}
 
 		if (atual.dir != null) {
-			desregulado = obterDesregulado(atual.dir, desregulado);
+			obterDesregulado(atual.dir, desregulado);
 		}
 
 		return desregulado;
@@ -352,10 +357,12 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 				System.out.println("Rotação dupla esquerda");
 				rotacaoDuplaEsquerda(no);
 			} else {
-				System.out.println("Rotação esquerda");
+				System.out.print("Rotação esquerda");
 				if (pai.chave != null) {
+					System.out.println(" com pai");
 					rotacaoEsquerda(no, pai);
 				} else {
+					System.out.println(" sem pai");
 					rotacaoEsquerda(no);
 				}
 
