@@ -143,14 +143,14 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		// Se for menor, busca na esquerda
 		if (contador < 0) {
 			return busca(no.esq, chave);
-		} 
-		// Se for maior, busca na direita		
+		}
+		// Se for maior, busca na direita
 		else if (contador > 0) {
 			return busca(no.dir, chave);
 		}
 		// Encontrou a chave
-		else{
-			if(contador == 0) {
+		else {
+			if (contador == 0) {
 				inserido = true;
 			}
 			return inserido;
@@ -244,14 +244,14 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	// Balanceando a árvore
 	public void balancear(No no) {
 		No desregulado = obterDesregulado(no);
-		System.out.println("--------");
-		No paiDesregulado = obterPaiDesregulado(no);
 
 		// Se já percorreu a árvore inteira (contador == qtdNos)
 		if (desregulado.chave == null) {
 			System.out.println("A árvore está balanceada!");
 			return;
 		} else {
+			No paiDesregulado = obterPaiDesregulado(desregulado);
+			
 			escolheRotacao(desregulado, paiDesregulado, getFatorEquilibrio(desregulado));
 		}
 
@@ -260,57 +260,82 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	}
 
 	private No obterDesregulado(No no) {
-		// q = fator de equilíbrio
-		int q = getFatorEquilibrio(no);
-		// Armazena o nó desregulado e seu pai
-		No desregulado = new No(null);
 
-		if (no == null) {
+		No desregulado = obterDesregulado(no, null);
+
+		System.out.println("O desregulado é o: " + desregulado.chave);
+
+		return desregulado;
+
+	}
+
+	private No obterDesregulado(No atual, No desregulado) {
+		// q = fator de equilíbrio
+		int q = getFatorEquilibrio(atual);
+
+		if (atual == null) {
 			System.out.println("Não foi possível realizar o balanceamento pois o nó inserido é nulo!");
 			return null;
 		}
 
-		System.out.println("O fator de equilíbrio de " + no.chave + " é " + q);
+		System.out.println("O fator de equilíbrio de " + atual.chave + " é " + q);
 
 		// Armazena o último nó desregulado
 		if (q > 1 || q < -1) {
-			desregulado = no;
+			desregulado = atual;
 		}
 
-		if (no.esq != null) {
-			desregulado = obterDesregulado(no.esq);
+		if (folha(atual) && desregulado.chave != null) {
+			return desregulado;
 		}
 
-		if (no.dir != null) {
-			desregulado = obterDesregulado(no.dir);
+		if (atual.esq != null) {
+			desregulado = obterDesregulado(atual.esq, desregulado);
+		}
+
+		if (atual.dir != null) {
+			desregulado = obterDesregulado(atual.dir, desregulado);
 		}
 
 		return desregulado;
 	}
 
-	private No obterPaiDesregulado(No no) {
+	private No obterPaiDesregulado(No desregulado) {
+
+		No paiDesregulado = obterPaiDesregulado(raiz, desregulado);
+
+		System.out.println("O pai do " + desregulado.chave + " é " + paiDesregulado.chave);
+
+		return paiDesregulado;
+
+	}
+
+	private No obterPaiDesregulado(No atual, No desregulado) {
 		// Armazena pai do nó desregulado
 		No paiDesregulado = new No(null);
 
-		if (no == null) {
+		if (atual == null) {
 			System.out.println("O nó é nulo!");
 			return null;
 		}
 
-		if (no.esq != null) {
-			// Se o nó desregulado estiver à esquerda, armazena o pai
-			if (getFatorEquilibrio(no.esq) > 1 || getFatorEquilibrio(no.esq) < -1) {
-				paiDesregulado = no;
+		if (atual.esq != null) {
+			// Se o filho esquerdo for o nó desregulado, retorna o pai
+			if (atual.esq.chave == desregulado.chave) {
+				paiDesregulado = atual;
+				return paiDesregulado;
 			}
-			obterPaiDesregulado(no.esq);
+			obterPaiDesregulado(atual.esq, desregulado);
 		}
 
 		// Se o nó desregulado estiver à direita, armazena o pai
-		if (no.dir != null) {
-			if (getFatorEquilibrio(no.dir) > 1 || getFatorEquilibrio(no.dir) < -1) {
-				paiDesregulado = no;
+		if (atual.dir != null) {
+			// Se o filho direito for o nó desregulado, retorna o pai
+			if (atual.dir.chave == desregulado.chave) {
+				paiDesregulado = atual;
+				return paiDesregulado;
 			}
-			obterPaiDesregulado(no.dir);
+			obterPaiDesregulado(atual.dir, desregulado);
 		}
 
 		return paiDesregulado;
