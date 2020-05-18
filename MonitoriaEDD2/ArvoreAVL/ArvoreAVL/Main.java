@@ -15,11 +15,11 @@ public class Main {
 //		arv.insere(10);
 //		arv.insere(13);
 
-		arv.insere(27);
-		arv.insere(15);
-		arv.insere(49);
-		arv.insere(10);
-		arv.insere(8);
+//		arv.insere(27);
+//		arv.insere(15);
+//		arv.insere(49);
+//		arv.insere(10);
+//		arv.insere(8);
 
 //		arv.insere(9);
 //		arv.insere(8);
