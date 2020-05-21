@@ -8,13 +8,14 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	private No raiz; // raiz da árvore
 
 	private class No {
-		private Chave chave; // Chave usada nas comparações.
-		private No esq, dir; // Referências para subárvores esquerda e direita.
+		private Chave chave; // Chave usada nas comparações
+		private No esq, dir, pai; // Referências para subárvores esquerda e direita.
 
 		public No(Chave chave) {
 			this.chave = chave;
 			this.esq = null;
 			this.dir = null;
+			this.pai = null;
 		}
 	}
 
