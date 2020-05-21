@@ -40,10 +40,12 @@ public class Main {
 //		arv.insere(27);
 //		arv.insere(49);
 		
-//		arv.insere(5);
-//		arv.insere(6);
-//		arv.insere(7);
-//		arv.insere(8);
+		arv.insere(5);
+		arv.insere(6);
+		arv.insere(7);
+		arv.insere(8);
+		arv.insere(9);
+		arv.insere(10);
 
 		// Rotação Dupla Esquerda
 
@@ -65,9 +67,7 @@ public class Main {
 //		arv.insere(11);
 //		arv.insere(25);
 
-		arv.mostra();
-
-		System.out.println("\nRaiz: " + arv.getChaveRaiz());
+		System.out.println("Raiz: " + arv.getChaveRaiz());
 		System.out.println("Altura da árvore: " + arv.calculaAltura(arv.getRaiz()));
 
 		System.out.println("");
