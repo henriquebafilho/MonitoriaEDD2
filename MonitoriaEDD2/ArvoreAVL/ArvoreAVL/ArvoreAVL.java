@@ -292,8 +292,8 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		// Se o nó for desregulado e seu q for menor que o do resregulado atual
 		if (q < -1 || q > 1) {
-			if(desregulado != null) {
-				if(Math.abs(q) < Math.abs(getFatorEquilibrio(desregulado))) {
+			if (desregulado != null) {
+				if (Math.abs(q) < Math.abs(getFatorEquilibrio(desregulado))) {
 					desregulado = atual;
 				}
 			} else {
@@ -360,7 +360,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			// se a subárvore direita possui q < 0
 			if (getFatorEquilibrio(no.dir) > 0) {
 				System.out.println("Rotação dupla esquerda");
-				rotacaoDuplaEsquerda(no);
+				rotacaoDuplaEsquerda(no, pai);
 			} else {
 				System.out.print("Rotação esquerda");
 				if (pai.chave != null) {
@@ -388,9 +388,9 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 	}
 
-	// ROTAÇÕES
+	// ROTAÇÕES (todas retornam a nova raiz da árvore rotacionada)
 	// Caso o nó desregulado esteja na raiz
-	public void rotacaoDireita(No no) {
+	public No rotacaoDireita(No no) {
 		// Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(null);
 		// Armazena a nova raiz da árvore rotacionada
@@ -404,10 +404,12 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		raizFirst.esq = raiz.dir;
 		raiz.dir = raizFirst;
+
+		return novaRaiz;
 	}
 
 	// Caso o nó desregulado não esteja na raiz
-	public void rotacaoDireita(No desregulado, No paiDesregulado) {
+	public No rotacaoDireita(No desregulado, No paiDesregulado) {
 		// Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(desregulado.chave);
 		// Armazena a nova raiz da árvore
@@ -429,10 +431,12 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		} else {
 			paiDesregulado.dir = novaRaiz;
 		}
+
+		return novaRaiz;
 	}
 
 	// Se o nó for igual a raiz
-	public void rotacaoEsquerda(No no) {
+	public No rotacaoEsquerda(No no) {
 		// Armazena a primeira raiz antes da rotação
 		No raizFirst = new No(null);
 		// Armazena a nova raiz da árvore rotacionada
@@ -446,9 +450,11 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		raizFirst.dir = raiz.esq;
 		raiz.esq = raizFirst;
+
+		return novaRaiz;
 	}
 
-	public void rotacaoEsquerda(No desregulado, No paiDesregulado) {
+	public No rotacaoEsquerda(No desregulado, No paiDesregulado) {
 		// Armazena a primeira raiz da árvore antes da rotação
 		No raizFirst = new No(desregulado.chave);
 		// Armazena a nova raiz da árvore
@@ -470,6 +476,8 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		} else {
 			paiDesregulado.dir = novaRaiz;
 		}
+
+		return novaRaiz;
 	}
 
 	// Caso o nó esteja na raiz
@@ -489,19 +497,43 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		raiz.dir = raizFirst;
 	}
 
-	public void rotacaoDuplaEsquerda(No no) {
-		// Armazena a primeira raiz antes da rotação
-		No raizFirst = new No(raiz.chave);
-		// Armazena a esquerda da raiz antes da rotação
-		No raizDir = new No(raiz.dir.chave);
+	public void rotacaoDuplaEsquerda(No no, No pai) {
+		// Se não tem pai
+		if (pai == null) {
+			// Armazena a primeira raiz antes da rotação
+			No raizFirst = new No(raiz.chave);
+			// Armazena a esquerda da raiz antes da rotação
+			No raizDir = new No(raiz.dir.chave);
 
-		raizDir.dir = raiz.dir.dir;
-		raizFirst.esq = raiz.esq;
+			raizDir.dir = raiz.dir.dir;
+			raizFirst.esq = raiz.esq;
 
-		raiz = raiz.dir.esq;
-		raizDir.esq = raiz.dir;
-		raiz.dir = raizDir;
-		raizFirst.dir = raiz.esq;
-		raiz.esq = raizFirst;
+			raiz = raiz.dir.esq;
+			raizDir.esq = raiz.dir;
+			raiz.dir = raizDir;
+			raizFirst.dir = raiz.esq;
+			raiz.esq = raizFirst;
+		} else {
+			// Armazena a primeira raiz antes da rotação
+			No raizFirst = new No(no.chave);
+			// Armazena a esquerda da raiz antes da rotação
+			No raizDir = new No(no.dir.chave);
+
+			raizDir.dir = no.dir.dir;
+			raizFirst.esq = no.esq;
+
+			no = no.dir.esq;
+			raizDir.esq = no.dir;
+			no.dir = raizDir;
+			raizFirst.dir = no.esq;
+			no.esq = raizFirst;
+		}
+
+		// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
+		if (pai.chave.compareTo(no.chave) > 0) {
+			pai.esq = no;
+		} else {
+			pai.dir = no;
+		}
 	}
 }

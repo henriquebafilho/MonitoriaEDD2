@@ -7,11 +7,11 @@ public class Main {
 	public static void main(String[] args) {
 		ArvoreAVL<Integer> arv = new ArvoreAVL<Integer>();
 
-		//Árvores Balanceadas
-		
+		// Árvores Balanceadas
+
 //		arv.insere(8);
 //		arv.insere(9);
-		
+
 		// Rotação direita
 
 //		arv.insere(30);
@@ -39,13 +39,6 @@ public class Main {
 //		arv.insere(15);
 //		arv.insere(27);
 //		arv.insere(49);
-		
-//		arv.insere(5);
-//		arv.insere(6);
-//		arv.insere(7);
-//		arv.insere(8);
-//		arv.insere(9);
-//		arv.insere(10);
 
 		// Rotação Dupla Esquerda
 
@@ -67,22 +60,31 @@ public class Main {
 //		arv.insere(11);
 //		arv.insere(25);
 
+		// Desregulada aleatória
+		
+		arv.insere(5);
+		arv.insere(6);
+		arv.insere(7);
+		arv.insere(8);
+		arv.insere(9);
+		arv.insere(10);
+
 		System.out.println("Raiz: " + arv.getChaveRaiz());
 		System.out.println("Altura da árvore: " + arv.calculaAltura(arv.getRaiz()));
 
 		System.out.println("");
 
-		 arv.balancear(arv.getRaiz());
+		arv.balancear(arv.getRaiz());
 
 		// arv.rotacaoDireita(arv.getRaiz());
 
 		// arv.rotacaoDireita(arv.getRaizEsquerda(), arv.getRaiz());
-		
+
 		// arv.rotacaoEsquerda(arv.getRaizDireita(), arv.getRaiz());
-		
+
 		// arv.rotacaoEsquerda(arv.getRaiz());
-		
-		 // System.out.println(arv.busca(27));
+
+		// System.out.println(arv.busca(27));
 	}
 
 }
