@@ -119,7 +119,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		if (no.dir != null) {
 			nosDir = contaNos(no.dir);
 		}
-
 		return 1 + nosEsq + nosDir;
 	}
 
@@ -138,12 +137,10 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		} else {
 			System.out.println("O nó inserido não está na árvore");
 		}
-
 		return procura;
 	}
 
 	public No busca(No no, Chave chave) {
-
 		No inserido = new No(null);
 
 		if (no == null) {
@@ -204,13 +201,12 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		else {
 			no.chave = chave;
 		}
-
 		return no;
 	}
 
 	// Remove o nó da árvore
 	public void remove(Chave chave) {
-
+		// TODO
 	}
 
 	// Calcula altura da árvore
@@ -232,7 +228,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		if (no.dir != null) {
 			altDir = this.calculaAltura(no.dir);
 		}
-
 		return 1 + Math.max(altEsq, altDir);
 	}
 
@@ -259,7 +254,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		if (no != null && !folha(no)) {
 			return esq - dir;
 		}
-
 		return 0;
 	}
 
@@ -347,7 +341,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			}
 			desregulado = obterDesregulado(atual.dir, desregulado);
 		}
-
 		return desregulado;
 	}
 
