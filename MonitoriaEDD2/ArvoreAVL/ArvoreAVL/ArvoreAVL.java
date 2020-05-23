@@ -118,46 +118,51 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return 1 + nosEsq + nosDir;
 	}
 
-	// Procura a chave inserida no método
-	public boolean busca(Chave chave) {
+	// Procura a chave inserida no método e retorna o nó
+	public No busca(Chave chave) {
 
 		if (chave == null) {
 			System.out.println("A chave é nula");
-			return false;
+			return null;
 		}
 
-		boolean pertence = busca(raiz, chave);
+		No procura = busca(raiz, chave);
 
-		return pertence;
+		if (procura != null) {
+			System.out.println("O nó " + procura.chave + " está na árvore");
+		} else {
+			System.out.println("O nó inserido não está na árvore");
+		}
+
+		return procura;
 	}
 
-	public boolean busca(No no, Chave chave) {
+	public No busca(No no, Chave chave) {
 
-		boolean inserido = false;
+		No inserido = new No(null);
 
 		if (no == null) {
 			System.out.println("O nó inserido é nulo");
-			return false;
+			return null;
 		}
 
 		// Calcula se a chave prcurada é maior, menor ou igual à atual
-		int contador = chave.compareTo(no.chave);
+		int comparador = chave.compareTo(no.chave);
 
 		// Se for menor, busca na esquerda
-		if (contador < 0) {
-			return busca(no.esq, chave);
+		if (comparador < 0) {
+			inserido = busca(no.esq, chave);
 		}
 		// Se for maior, busca na direita
-		else if (contador > 0) {
-			return busca(no.dir, chave);
+		else if (comparador > 0) {
+			inserido = busca(no.dir, chave);
 		}
 		// Encontrou a chave
 		else {
-			if (contador == 0) {
-				inserido = true;
-			}
+			inserido = no;
 			return inserido;
 		}
+		return inserido;
 	}
 
 	// Insere nó na árvore
