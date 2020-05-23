@@ -81,8 +81,6 @@ public class Main {
 
 		System.out.println("");
 
-		arv.balancear(arv.getRaiz());
-
 		// arv.rotacaoDireita(arv.getRaiz());
 
 		// arv.rotacaoDireita(arv.getRaizEsquerda(), arv.getRaiz());
