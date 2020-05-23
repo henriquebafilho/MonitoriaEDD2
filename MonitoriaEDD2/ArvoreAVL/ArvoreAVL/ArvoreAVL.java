@@ -9,12 +9,13 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	private class No {
 		private Chave chave; // Chave usada nas comparações
-		private No esq, dir; // Referências para subárvores esquerda e direita.
+		private No esq, dir, pai; // Referências para subárvores esquerda e direita.
 
 		public No(Chave chave) {
 			this.chave = chave;
 			this.esq = null;
 			this.dir = null;
+			this.pai = null;
 		}
 	}
 
@@ -40,6 +41,10 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	public No getRaizDireita() {
 		return raiz.dir;
+	}
+
+	public No getPai(No no) {
+		return no.pai;
 	}
 
 	// Retorna a chave da raiz
@@ -258,6 +263,14 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return 0;
 	}
 
+	// Chega se o nó está regulado
+	public boolean regulado(No no) {
+		if (getFatorEquilibrio(no) < -1 || getFatorEquilibrio(no) > 1) {
+			return false;
+		}
+		return true;
+	}
+
 	// Balanceando a árvore a partir da raiz
 	public void balancear(No raiz) {
 		mostra();
@@ -266,7 +279,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		// Tenta procurar o nó desregulado na árvore e seu pai a partir da raiz
 		if (desregulado != null) {
 			// Armazena o pai do nó desregulado
-			No paiDesregulado = obterPaiDesregulado(desregulado);
+			No paiDesregulado = desregulado.pai; // obterPaiDesregulado(desregulado);
 
 			// Escolhe a rotação a ser feita a partir do nó desregulado e seu pai
 			escolheRotacao(desregulado, paiDesregulado, getFatorEquilibrio(desregulado));
@@ -287,8 +300,12 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		if (desregulado != null) {
 			System.out.println("O desregulado é o: " + desregulado.chave);
+			if (desregulado.pai != null) {
+				System.out.println("O pai do desregulado é: " + desregulado.pai.chave);
+			} else {
+				System.out.println("O pai do " + desregulado.chave + " é nulo");
+			}
 		}
-
 		return desregulado;
 	}
 
@@ -304,7 +321,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		System.out.println("O fator de equilíbrio de " + atual.chave + " é " + q);
 
 		// Se o nó for desregulado e seu q for menor que o do resregulado atual
-		if (q < -1 || q > 1) {
+		if (!regulado(atual)) {
 			if (desregulado != null) {
 				if (Math.abs(q) < Math.abs(getFatorEquilibrio(desregulado))) {
 					desregulado = atual;
@@ -316,52 +333,22 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 
 		if (atual.esq != null) {
+			// Se o próximo não está regulado, o atual se torna pai dele
+			if (!regulado(atual.esq)) {
+				atual.esq.pai = atual;
+			}
 			desregulado = obterDesregulado(atual.esq, desregulado);
 		}
 
 		if (atual.dir != null) {
+			// Se o próximo não está regulado, o atual se torna pai dele
+			if (!regulado(atual.dir)) {
+				atual.dir.pai = atual;
+			}
 			desregulado = obterDesregulado(atual.dir, desregulado);
 		}
 
 		return desregulado;
-	}
-
-	private No obterPaiDesregulado(No desregulado) {
-		No paiDesregulado = obterPaiDesregulado(raiz, desregulado);
-
-		System.out.println("O pai do " + desregulado.chave + " é " + paiDesregulado.chave);
-
-		return paiDesregulado;
-	}
-
-	private No obterPaiDesregulado(No atual, No desregulado) {
-		// Armazena pai do nó desregulado
-		No paiDesregulado = new No(null);
-
-		if (atual == null) {
-			System.out.println("O nó é nulo!");
-			return null;
-		}
-
-		if (atual.esq != null) {
-			// Se o filho esquerdo for o nó desregulado, atribui o pai ao atual e o retorna
-			if (atual.esq.chave == desregulado.chave) {
-				paiDesregulado = atual;
-				return paiDesregulado;
-			}
-			paiDesregulado = obterPaiDesregulado(atual.esq, desregulado);
-		}
-
-		// Se o nó desregulado estiver à direita, armazena o pai
-		if (atual.dir != null) {
-			// Se o filho direito for o nó desregulado, retorna o pai
-			if (atual.dir.chave == desregulado.chave) {
-				paiDesregulado = atual;
-				return paiDesregulado;
-			}
-			paiDesregulado = obterPaiDesregulado(atual.dir, desregulado);
-		}
-		return paiDesregulado;
 	}
 
 	private void escolheRotacao(No no, No pai, int q) {
@@ -408,7 +395,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 
 		// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
-		if (pai.chave != null) {
+		if (pai != null) {
 			if (pai.chave.compareTo(desregulado.chave) > 0) {
 				pai.esq = novaRaiz;
 			} else {
@@ -438,7 +425,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 
 		// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
-		if (pai.chave != null) {
+		if (pai != null) {
 			if (pai.chave.compareTo(desregulado.chave) > 0) {
 				pai.esq = novaRaiz;
 			} else {
