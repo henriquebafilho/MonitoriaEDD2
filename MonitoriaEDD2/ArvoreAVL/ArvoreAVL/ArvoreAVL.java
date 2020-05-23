@@ -203,6 +203,11 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return no;
 	}
 
+	// Remove o nó da árvore
+	public void remove(Chave chave) {
+
+	}
+
 	// Calcula altura da árvore
 	public int calculaAltura(No no) {
 
@@ -384,34 +389,26 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	// ROTAÇÕES
 	public void rotacaoDireita(No desregulado, No pai) {
 		// Armazena a nova raiz da árvore
-		No novaRaiz = new No(null);
+		No novaRaiz = desregulado.esq;
 
-		// Se o nó for a raiz
-		if (pai.chave == null) {
-			// Armazena a primeira raiz antes da rotação
-			No raizFirst = raiz;
+		// Armazena a primeira raiz antes da rotação
+		No raizFirst = desregulado;
 
-			// Atualiza a raiz
-			raiz = raiz.esq;
-			novaRaiz = raiz;
+		// Se o desregulado estiver na raiz
+		if (desregulado.chave == raiz.chave) {
+			raiz = desregulado.esq;
+		}
 
-			raizFirst.esq = raiz.dir;
-			raiz.dir = raizFirst;
+		if (novaRaiz.dir == null) {
+			novaRaiz.dir = raizFirst;
+			raizFirst.esq = null;
 		} else {
-			// Armazena a primeira raiz antes da rotação
-			No raizFirst = desregulado;
+			raizFirst.esq = novaRaiz.dir;
+			novaRaiz.dir = raizFirst;
+		}
 
-			novaRaiz = desregulado.esq;
-
-			if (novaRaiz.dir == null) {
-				novaRaiz.dir = raizFirst;
-				raizFirst.esq = null;
-			} else {
-				raizFirst.esq = novaRaiz.dir;
-				novaRaiz.dir = raizFirst;
-			}
-
-			// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
+		// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
+		if (pai.chave != null) {
 			if (pai.chave.compareTo(desregulado.chave) > 0) {
 				pai.esq = novaRaiz;
 			} else {
@@ -420,37 +417,29 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 	}
 
-	public void rotacaoEsquerda(No no, No pai) {
+	public void rotacaoEsquerda(No desregulado, No pai) {
 		// Armazena a nova raiz da árvore
-		No novaRaiz = new No(null);
+		No novaRaiz = desregulado.dir;
+
+		// Armazena a primeira raiz antes da rotação
+		No raizFirst = desregulado;
 
 		// Se o desregulado estiver na raiz
-		if (pai.chave == null) {
-			// Armazena a primeira raiz antes da rotação
-			No raizFirst = raiz;
+		if (desregulado.chave == raiz.chave) {
+			raiz = desregulado.dir;
+		}
 
-			// Atualiza a raiz
-			raiz = raiz.dir;
-			novaRaiz = raiz;
-
-			raizFirst.dir = raiz.esq;
-			raiz.esq = raizFirst;
+		if (novaRaiz.esq == null) {
+			novaRaiz.esq = raizFirst;
+			raizFirst.dir = null;
 		} else {
-			// Armazena a primeira raiz da árvore antes da rotação
-			No raizFirst = no;
+			raizFirst.dir = novaRaiz.esq;
+			novaRaiz.esq = raizFirst;
+		}
 
-			novaRaiz = no.dir;
-
-			if (novaRaiz.esq == null) {
-				novaRaiz.esq = raizFirst;
-				raizFirst.dir = null;
-			} else {
-				raizFirst.dir = novaRaiz.esq;
-				novaRaiz.esq = raizFirst;
-			}
-
-			// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
-			if (pai.chave.compareTo(no.chave) > 0) {
+		// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
+		if (pai.chave != null) {
+			if (pai.chave.compareTo(desregulado.chave) > 0) {
 				pai.esq = novaRaiz;
 			} else {
 				pai.dir = novaRaiz;
