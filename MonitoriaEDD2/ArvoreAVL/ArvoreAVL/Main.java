@@ -69,12 +69,12 @@ public class Main {
 //		arv.insere(9);
 //		arv.insere(10);
 		
-//		arv.insere(10);
-//		arv.insere(9);
-//		arv.insere(8);
-//		arv.insere(7);
-//		arv.insere(6);
-//		arv.insere(5);
+		arv.insere(10);
+		arv.insere(9);
+		arv.insere(8);
+		arv.insere(7);
+		arv.insere(6);
+		arv.insere(5);
 
 		System.out.println("Raiz: " + arv.getChaveRaiz());
 		System.out.println("Altura da árvore: " + arv.calculaAltura(arv.getRaiz()));

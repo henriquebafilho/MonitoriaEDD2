@@ -169,6 +169,8 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 
 		raiz = insere(raiz, chave);
+		
+		balancear(this.raiz);
 	}
 
 	private No insere(No no, Chave chave) {
