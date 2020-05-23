@@ -103,16 +103,18 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			return 0;
 		}
 
-		if ((raiz.esq == null) && (raiz.dir == null))
+		if ((raiz.esq == null) && (raiz.dir == null)) {
 			return 1;
+		}
 
 		int nosEsq = 0, nosDir = 0;
 
-		if (no.esq != null)
+		if (no.esq != null) {
 			nosEsq = contaNos(no.esq);
-
-		if (no.dir != null)
+		}
+		if (no.dir != null) {
 			nosDir = contaNos(no.dir);
+		}
 
 		return 1 + nosEsq + nosDir;
 	}
@@ -169,7 +171,8 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 
 		raiz = insere(raiz, chave);
-		
+
+		// Balancea depois de cada inserção
 		balancear(this.raiz);
 	}
 
@@ -361,7 +364,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 				rotacaoDuplaEsquerda(no, pai);
 			} else {
 				System.out.println("Rotação esquerda");
-					rotacaoEsquerda(no, pai);
+				rotacaoEsquerda(no, pai);
 			}
 		} else if (q > 1) {
 			// se as subárvore direita possui q>0
@@ -422,7 +425,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		No novaRaiz = new No(null);
 
 		// Se o desregulado estiver na raiz
-		if (paiDesregulado.chave == null) {			
+		if (paiDesregulado.chave == null) {
 			// Armazena a primeira raiz antes da rotação
 			No raizFirst = new No(null);
 
