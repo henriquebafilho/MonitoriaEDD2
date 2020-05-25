@@ -10,6 +10,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	private class No {
 		private Chave chave; // Chave usada nas comparações
 		private No esq, dir, pai; // Referências para subárvores esquerda e direita.
+		// O nó pai só será usado quando o nó desregulado não estiver na raiz
 
 		public No(Chave chave) {
 			this.chave = chave;
@@ -246,7 +247,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	// Retorna fator de equilíbrio do nó
 	public int getFatorEquilibrio(No no) {
-
 		int esq = calculaAltura(no.esq);
 		int dir = calculaAltura(no.dir);
 
@@ -265,15 +265,20 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return true;
 	}
 
+//	  PASSOS PARA REALIZAR O BALANCEAMENTO
+//	  1 - procurar nó desregulado na árvore
+//	  2 - (caso tenha) calcular qual rotação deve ser feita, através da posição do nó na árvore
+//	  3 - executar a rotação
+
 	// Balanceando a árvore a partir da raiz
 	public void balancear(No raiz) {
 		mostra();
+		// Procurar nó desregulado na árvore e seu pai a partir da raiz
 		No desregulado = obterDesregulado(raiz);
 
-		// Tenta procurar o nó desregulado na árvore e seu pai a partir da raiz
 		if (desregulado != null) {
 			// Armazena o pai do nó desregulado
-			No paiDesregulado = desregulado.pai; // obterPaiDesregulado(desregulado);
+			No paiDesregulado = desregulado.pai;
 
 			// Escolhe a rotação a ser feita a partir do nó desregulado e seu pai
 			escolheRotacao(desregulado, paiDesregulado, getFatorEquilibrio(desregulado));
@@ -314,13 +319,17 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 		System.out.println("O fator de equilíbrio de " + atual.chave + " é " + q);
 
-		// Se o nó for desregulado e seu q for menor que o do resregulado atual
 		if (!regulado(atual)) {
+			// Se já tem um nó desregulado
 			if (desregulado != null) {
+				// Se o nó for desregulado e seu q for menor que o do desregulado atual,
+				// atualiza o desregulado
 				if (Math.abs(q) < Math.abs(getFatorEquilibrio(desregulado))) {
 					desregulado = atual;
 				}
-			} else {
+			}
+			// Caso seja o primeiro nó desregulado, desregulado aponta para ele
+			else {
 				desregulado = atual;
 			}
 			System.out.println(desregulado.chave);
@@ -344,9 +353,10 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return desregulado;
 	}
 
+	// Calcula qual rotação deve ser feita através da posição do nó na árvore
 	private void escolheRotacao(No no, No pai, int q) {
 		if (q < -1) {
-			// se a subárvore direita possui q < 0
+			// se a subárvore direita possui q > 0
 			if (getFatorEquilibrio(no.dir) > 0) {
 				System.out.println("Rotação dupla esquerda");
 				rotacaoDuplaEsquerda(no, pai);
@@ -355,7 +365,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 				rotacaoEsquerda(no, pai);
 			}
 		} else if (q > 1) {
-			// se as subárvore direita possui q>0
+			// se as subárvore direita possui q < 0
 			if (getFatorEquilibrio(no.esq) < 0) {
 				System.out.println("Rotação dupla direita");
 				rotacaoDuplaDireita(no, pai);
