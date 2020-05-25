@@ -9,7 +9,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	private class No {
 		private Chave chave; // Chave usada nas comparações
-		private No esq, dir, pai; // Referências para subárvores esquerda e direita.
+		private No esq, dir, pai; // Referências para subárvores esquerda e direita
 		// O nó pai só será usado quando o nó desregulado não estiver na raiz
 
 		public No(Chave chave) {
@@ -79,7 +79,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	}
 
 	private void mostra(No no) {
-
 		if (no == null) {
 			System.out.println("A árvore é nula");
 			return;
@@ -103,7 +102,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	// Conta quantos nós tem na árvore
 	public int contaNos(No no) {
-
 		if (no == null) {
 			return 0;
 		}
@@ -125,7 +123,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	// Procura a chave inserida no método e retorna o nó
 	public No busca(Chave chave) {
-
 		if (chave == null) {
 			System.out.println("A chave é nula");
 			return null;
@@ -212,7 +209,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	// Calcula altura da árvore
 	public int calculaAltura(No no) {
-
 		int altEsq = 0, altDir = 0;
 
 		if (no == null) {
@@ -234,7 +230,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	// Calcula número mínimo de nós que a árvore deve ter para ser AVL
 	public int calculaNumeroMinimoNos(No no) {
-
 		int altura = calculaAltura(no);
 
 		if (altura == 0) {
@@ -294,6 +289,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		balancear(this.raiz);
 	}
 
+	// 1 - Procurando nó desregulado
 	private No obterDesregulado(No no) {
 		No desregulado = obterDesregulado(no, null);
 
@@ -353,7 +349,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return desregulado;
 	}
 
-	// Calcula qual rotação deve ser feita através da posição do nó na árvore
+	// 2 - Calcula qual rotação deve ser feita através da posição do nó na árvore
 	private void escolheRotacao(No no, No pai, int q) {
 		if (q < -1) {
 			// se a subárvore direita possui q > 0
@@ -376,7 +372,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 	}
 
-	// ROTAÇÕES
+	// 3 - ROTAÇÕES
 	public void rotacaoDireita(No desregulado, No pai) {
 		// Armazena a nova raiz da árvore
 		No novaRaiz = desregulado.esq;
