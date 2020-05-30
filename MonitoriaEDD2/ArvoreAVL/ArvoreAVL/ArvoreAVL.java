@@ -453,7 +453,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 				rotacaoEsquerda(no, pai);
 			}
 		} else if (q > 1) {
-			// se as subárvore direita possui q < 0
+			// se a subárvore direita possui q < 0
 			if (getFatorEquilibrio(no.esq) < 0) {
 				System.out.println("Rotação dupla direita");
 				rotacaoDuplaDireita(no, pai);
@@ -525,15 +525,13 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 	}
 
-	// Rotação Dupla Direita = RE no filho esquerdo do desregulado + RD no
-	// desregulado
+	// RDD = RE no filho esquerdo do desregulado + RD no desregulado
 	public void rotacaoDuplaDireita(No no, No pai) {
 		rotacaoEsquerda(no.esq, no);
 		rotacaoDireita(no, pai);
 	}
 
-	// Rotação Dupla Esquerda = RD no filho direito do desregulado + RE no
-	// desregulado
+	// RDE = RD no filho direito do desregulado + RE no desregulado
 	public void rotacaoDuplaEsquerda(No no, No pai) {
 		rotacaoDireita(no.dir, no);
 		rotacaoEsquerda(no, pai);
