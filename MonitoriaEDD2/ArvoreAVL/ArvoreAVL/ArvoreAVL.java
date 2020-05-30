@@ -287,16 +287,15 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		balancear(raiz);
 	}
 
-	private No deleteMin(No x) {
-		// Caso não haja filho à esquerda, o nó corrente possui a menor chave.
-		if (x.esq == null) {
-			// Se o x.dir não for nulo, o pai do menor passa a apontar para ele
-			return x.dir;
+	private No deleteMin(No atual) {
+		// Caso não tenha filho à esquerda, o nó atual possui a menor chave
+		if (atual.esq == null) {
+			// Se o atual.dir não for nulo, o pai do menor passa a apontar para ele
+			return atual.dir;
 		}
+		atual.esq = deleteMin(atual.esq);
 
-		x.esq = deleteMin(x.esq);
-
-		return x;
+		return atual;
 	}
 
 	// Calcula altura da árvore
