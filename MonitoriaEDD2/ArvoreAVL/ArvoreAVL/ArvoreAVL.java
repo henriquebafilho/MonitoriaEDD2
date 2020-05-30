@@ -177,12 +177,12 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		if (no.chave == null) {
 			throw new IllegalArgumentException("A chave fornecida é null!");
 		}
-		// System.out.println("-----------");
+		System.out.println("-----------");
 
 		raiz = insere(raiz, chave);
 
 		// Balancea depois de cada inserção
-		// balancear(this.raiz);
+		balancear(this.raiz);
 	}
 
 	private No insere(No no, Chave chave) {
