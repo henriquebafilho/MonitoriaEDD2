@@ -215,11 +215,11 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return min(raiz).chave;
 	}
 
-	private No min(No x) {
-		if (x.esq == null) {
-			return x;
+	private No min(No atual) {
+		if (atual.esq == null) {
+			return atual;
 		} else {
-			return min(x.esq);
+			return min(atual.esq);
 		}
 	}
 
