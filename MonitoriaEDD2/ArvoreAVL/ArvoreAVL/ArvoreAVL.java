@@ -3,6 +3,10 @@
  * e no livro "Estrutura de Dados e Seus Algoritmos - 3ª edição" de Jayme Luiz Szwarcfiter e Lilian Markenzon*/
 package ArvoreAVL;
 
+import java.util.NoSuchElementException;
+
+import ArvoreBinariaBusca.ArvBinBusca.No;
+
 public class ArvoreAVL<Chave extends Comparable<Chave>> {
 
 	private No raiz; // raiz da árvore
@@ -202,9 +206,97 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return no;
 	}
 
-	// Remove o nó da árvore
-	public void remove(Chave chave) {
-		// TODO
+	// Pega a menor chave da árvore
+	public Chave min() {
+		if (vazia()) {
+			System.out.println("A árvore está vazia");
+			return null;
+		}
+		return min(raiz).chave;
+	}
+
+	private No min(No x) {
+		if (x.esq == null) {
+			return x;
+		} else {
+			return min(x.esq);
+		}
+	}
+
+	// Deletar um nó
+	public boolean delete(Chave chave) {
+		raiz = delete(raiz, chave);
+
+		if (raiz != null) {
+			// Depois de deletar, checa se a árvore está balanceada
+			balancear(raiz);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	private No delete(No atual, Chave chave) {
+		if (atual == null) {
+			System.out.println("O nó inserido é nulo");
+			return null;
+		}
+
+		// Compara a chave atual com a que deve ser deletada
+		int comparador = chave.compareTo(atual.chave);
+
+		// Se a atual for menor, checa o filho à esquerda
+		if (comparador < 0) {
+			atual.esq = delete(atual.esq, chave);
+		}
+		// Se a atual for maior, checa o filho à direita
+		else if (comparador > 0) {
+			atual.dir = delete(atual.dir, chave);
+		}
+		else {
+			if (atual.dir == null) {
+				return atual.esq;
+			}
+			if (atual.esq == null) {
+				return atual.dir;
+			}
+
+			No aux = atual;
+
+			// Pega o menor da subárvore direita (mais à esquerda)
+			atual = min(aux.dir);
+
+			// Remove o menor
+			atual.dir = deleteMin(aux.dir);
+
+			// A subárvore esquerda se mantém a mesma
+			atual.esq = aux.esq;
+		}
+		return atual;
+	}
+
+	// Deleta o menor nó da árvore
+	public void deleteMin() {
+		if (vazia()) {
+			System.out.println("A árvore está vazia");
+			return;
+		}
+		raiz = deleteMin(raiz);
+
+		// Depois de deletar, checa se a árvore está balanceada
+		balancear(raiz);
+	}
+
+	private No deleteMin(No x) {
+		// Caso não haja filho à esquerda, o nó corrente possui a menor chave.
+		if (x.esq == null) {
+			// Se o x.dir não for nulo, o pai do menor passa a apontar para ele
+			return x.dir;
+		}
+
+		x.esq = deleteMin(x.esq);
+
+		return x;
 	}
 
 	// Calcula altura da árvore
@@ -433,11 +525,15 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 	}
 
+	// Rotação Dupla Direita = RE no filho esquerdo do desregulado + RD no
+	// desregulado
 	public void rotacaoDuplaDireita(No no, No pai) {
 		rotacaoEsquerda(no.esq, no);
 		rotacaoDireita(no, pai);
 	}
 
+	// Rotação Dupla Esquerda = RD no filho direito do desregulado + RE no
+	// desregulado
 	public void rotacaoDuplaEsquerda(No no, No pai) {
 		rotacaoDireita(no.dir, no);
 		rotacaoEsquerda(no, pai);
