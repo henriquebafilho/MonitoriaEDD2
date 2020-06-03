@@ -5,6 +5,8 @@ import ArvoreAVL.ArvoreAVL;
 public class Main {
 
 	public static void main(String[] args) {
+		
+		//Criando uma árvore inicialmente vazia
 		ArvoreAVL<Integer> arv = new ArvoreAVL<Integer>();
 
 		// Árvores Balanceadas
@@ -76,26 +78,9 @@ public class Main {
 		arv.insere(6);
 		arv.insere(5);
 
-		System.out.println("Raiz: " + arv.getChaveRaiz());
-		System.out.println("Altura da árvore: " + arv.calculaAltura(arv.getRaiz()));
-
-		System.out.println("");
-
-		// arv.rotacaoDireita(arv.getRaiz());
-
-		// arv.rotacaoDireita(arv.getRaizEsquerda(), arv.getRaiz());
-
-		// arv.rotacaoEsquerda(arv.getRaizDireita(), arv.getRaiz());
-
-		// arv.rotacaoEsquerda(arv.getRaiz());
-
 		// arv.busca(7);
 
-		arv.balancear(arv.getRaiz());
-
-		arv.deleteMin();
-
-		arv.mostra();
+		arv.balancear();
 	}
 
 }

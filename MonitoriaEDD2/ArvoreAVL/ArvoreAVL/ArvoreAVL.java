@@ -1,14 +1,6 @@
-/*Feito por Henrique Filho, baseado no material de Estrutura de Dados 1 do professor Pedro Nuno Moura 
-(presente no package "ArvoreBinaria" e "ArvoreBinariaBusca") 
- * e no livro "Estrutura de Dados e Seus Algoritmos - 3ª edição" de Jayme Luiz Szwarcfiter e Lilian Markenzon*/
 package ArvoreAVL;
 
-import java.util.NoSuchElementException;
-
-import ArvoreBinariaBusca.ArvBinBusca.No;
-
 public class ArvoreAVL<Chave extends Comparable<Chave>> {
-
 	private No raiz; // raiz da árvore
 
 	private class No {
@@ -40,21 +32,9 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return this.raiz;
 	}
 
-	public No getRaizEsquerda() {
-		return raiz.esq;
-	}
-
-	public No getRaizDireita() {
-		return raiz.dir;
-	}
-
-	public No getPai(No no) {
-		return no.pai;
-	}
-
 	// Retorna a chave da raiz
 	public Chave getChaveRaiz() {
-		if (getRaiz() == null) {
+		if (this.raiz == null) {
 			System.out.println("A raiz é nula");
 			return null;
 		}
@@ -177,12 +157,8 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		if (no.chave == null) {
 			throw new IllegalArgumentException("A chave fornecida é null!");
 		}
-		System.out.println("-----------");
 
 		raiz = insere(raiz, chave);
-
-		// Balancea depois de cada inserção
-		balancear(this.raiz);
 	}
 
 	private No insere(No no, Chave chave) {
@@ -343,7 +319,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return 0;
 	}
 
-	// Chega se o nó está regulado
+	// Checa se o nó está regulado
 	public boolean regulado(No no) {
 		if (getFatorEquilibrio(no) < -1 || getFatorEquilibrio(no) > 1) {
 			return false;
@@ -357,7 +333,11 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 //	  3 - executar a rotação
 
 	// Balanceando a árvore a partir da raiz
-	public void balancear(No raiz) {
+	public void balancear() {
+		balancear(raiz);
+	}
+	
+	private void balancear(No raiz) {
 		mostra();
 		// Procurar nó desregulado na árvore e seu pai a partir da raiz
 		No desregulado = obterDesregulado(raiz);
