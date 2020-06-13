@@ -18,8 +18,8 @@ public class Main {
 		g.adicionaVertice(v3);
 		
 		v1.liga(v2);
-		v2.liga(v3);
-		v3.liga(v1);
+		v3.liga(v2);
+		v1.liga(v3);
 		
 		g.mostraVertices();
 		g.mostraLA();

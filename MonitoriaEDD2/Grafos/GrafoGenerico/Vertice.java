@@ -12,6 +12,20 @@ public class Vertice {
 
 	// Liga o vértice atual ao do parâmetro
 	public void liga(Vertice v) {
+		// Caso os vértices possuam as mesmas chaves
+		if (this.chave == v.chave) {
+			System.out.println("Um vértice não pode se ligar a ele mesmo");
+			return;
+		}
+
+		// Checa se os vértices já estão ligados
+		for (int i = 0; i < adjacentes.size(); i++) {
+			if (v.chave == adjacentes.get(i).chave) {
+				System.out.println("Os vértices já estão ligados");
+				return;
+			}
+		}
+
 		// Ligação recíproca
 		this.adjacentes.add(v);
 		v.adjacentes.add(this);
@@ -21,7 +35,7 @@ public class Vertice {
 	public void mostraAdjacentes() {
 		// Caso não tenha adjacentes
 		if (adjacentes.size() == 0) {
-			System.out.println("O vértice não possui vértices adjacentes");
+			System.out.println("O vértice " + this.chave + " não possui vértices adjacentes");
 			return;
 		}
 
