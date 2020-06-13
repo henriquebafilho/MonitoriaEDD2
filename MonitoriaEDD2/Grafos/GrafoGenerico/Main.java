@@ -17,7 +17,12 @@ public class Main {
 		g.adicionaVertice(v2);
 		g.adicionaVertice(v3);
 		
+		v1.liga(v2);
+		v2.liga(v3);
+		v3.liga(v1);
+		
 		g.mostraVertices();
+		g.mostraLA();
 	}
 	
 }

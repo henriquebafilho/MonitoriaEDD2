@@ -10,6 +10,14 @@ public class Vertice {
 		this.chave = chave; // Atribuindo o vértice que for inserido
 	}
 
+	// Liga o vértice atual ao do parâmetro
+	public void liga(Vertice v) {
+		// Ligação recíproca
+		this.adjacentes.add(v);
+		v.adjacentes.add(this);
+	}
+
+	// Mostra todos os vértices adjacentes ao atual
 	public void mostraAdjacentes() {
 		// Caso não tenha adjacentes
 		if (adjacentes.size() == 0) {
