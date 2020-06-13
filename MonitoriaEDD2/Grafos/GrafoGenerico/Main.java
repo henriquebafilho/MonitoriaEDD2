@@ -9,9 +9,13 @@ public class Main {
 	public static void main(String[] args) {
 		Grafo g = new Grafo();
 		
-		g.insere(1);
-		g.insere(2);
-		g.insere(3);
+		Vertice v1 = new Vertice(1);
+		Vertice v2 = new Vertice(2);
+		Vertice v3 = new Vertice(3);
+		
+		g.adicionaVertice(v1);
+		g.adicionaVertice(v2);
+		g.adicionaVertice(v3);
 		
 		g.mostraVertices();
 	}

@@ -6,32 +6,6 @@ import java.util.ArrayList;
 public class Grafo {
 	private ArrayList<Vertice> vertices = new ArrayList<Vertice>(); // Conjunto de vértices do grafo
 
-	private class Vertice {
-		private int chave; // Chave do vértice
-		private ArrayList<Vertice> adjacentes = new ArrayList<Vertice>(); // Conjunto de vértices adjacentes
-
-		public Vertice(int chave) {
-			this.chave = chave; // Atribuindo o vértice que for inserido
-			this.adjacentes = null; // Conjunto de adjacentes inicialmente vazio
-		}
-
-		public void mostraAdjacentes() {
-			// Caso não tenha adjacentes
-			if (adjacentes.size() == 0) {
-				System.out.println("O vértice não possui vértices adjacentes");
-				return;
-			}
-
-			System.out.print(chave + ": ");
-
-			for (int i = 0; i < adjacentes.size(); i++) {
-				System.out.print(adjacentes.get(i).chave);
-				System.out.print(" ");
-			}
-			System.out.println();
-		}
-	}
-
 //	// Mostrando os vértices por Lista de Adjacência
 //	public void mostraLA() {
 //		// Caso não tenha vértices no grafo
@@ -55,11 +29,9 @@ public class Grafo {
 		}
 		System.out.println();
 	}
-
-	// Insere vértice no grafo
-	public void insere(int chave) {
-		Vertice v = new Vertice(chave);
-
+	
+	// Adiciona o vértice no grafo
+	public void adicionaVertice(Vertice v) {
 		vertices.add(v);
 	}
 
