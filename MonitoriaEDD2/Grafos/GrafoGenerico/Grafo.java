@@ -34,7 +34,7 @@ public class Grafo {
 		for (int i = 0; i < vertices.size(); i++) {
 			System.out.print(vertices.get(i).chave + ": ");
 			for (int j = 0; j < vertices.size(); j++) {
-				// Bolean que controla se o vértice foi encontrado nos adjacentes do vértice i atual
+				// Boolean que controla se o vértice foi encontrado nos adjacentes do vértice i atual
 				boolean encontrou = false;
 				for (int k = 0; k < vertices.get(i).adjacentes.size(); k++) {
 					// Se encontrou, printa 1 e vai para a próxima testagem
