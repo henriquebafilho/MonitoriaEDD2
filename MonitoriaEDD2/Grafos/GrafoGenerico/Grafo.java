@@ -21,21 +21,31 @@ public class Grafo {
 		}
 		return regular;
 	}
-	
+
 	// Checa se o grafo é nulo (não possui arestas)
 	public boolean nulo() {
 		for (int i = 0; i < vertices.size(); i++) {
-			if(vertices.get(i).getGrau() != 0) {
+			if (vertices.get(i).getGrau() != 0) {
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
 	// Checa se o grafo é completo (regular de grau n-1, onde n = |v|)
 	public boolean completo() {
-		if(this.regular() && (vertices.get(0).getGrau() == vertices.size()-1)) {
+		if (this.regular() && (vertices.get(0).getGrau() == vertices.size() - 1)) {
 			return true;
+		}
+		return false;
+	}
+
+	// Checa se o vértice está no grafo
+	public boolean contem(Vertice v) {
+		for (int i = 0; i < vertices.size(); i++) {
+			if (v.chave == vertices.get(i).chave) {
+				return true;
+			}
 		}
 		return false;
 	}
