@@ -40,14 +40,12 @@ public class Grafo {
 		return false;
 	}
 
-	// Checa se o vértice está no grafo
-	public boolean contem(Vertice v) {
-		for (int i = 0; i < vertices.size(); i++) {
-			if (v.chave == vertices.get(i).chave) {
-				return true;
-			}
-		}
-		return false;
+	// Checa se o grafo é conexo (contém 1 vértice que alcance todos os outros)
+	public boolean conexo() {
+		
+	}
+	private boolean conexo(Vertice v) {
+		
 	}
 
 	// Mostrando os vértices por Lista de Adjacência

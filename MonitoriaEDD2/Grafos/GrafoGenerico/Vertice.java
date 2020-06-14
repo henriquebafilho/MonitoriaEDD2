@@ -9,7 +9,7 @@ public class Vertice {
 	public Vertice(int chave) {
 		this.chave = chave; // Atribuindo o vértice que for inserido
 	}
-	
+
 	// Retorna o grau do vértice
 	public int getGrau() {
 		return adjacentes.size();
@@ -34,6 +34,16 @@ public class Vertice {
 		// Ligação recíproca
 		this.adjacentes.add(v);
 		v.adjacentes.add(this);
+	}
+
+	// Checa se o vértice está no grafo
+	public boolean contemAdjacente(Vertice v) {
+		for (int i = 0; i < adjacentes.size(); i++) {
+			if (v.chave == adjacentes.get(i).chave) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// Mostra todos os vértices adjacentes ao atual

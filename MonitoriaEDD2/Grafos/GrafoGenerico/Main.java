@@ -14,16 +14,18 @@ public class Main {
 		Vertice v1 = new Vertice(1);
 		Vertice v2 = new Vertice(2);
 		Vertice v3 = new Vertice(3);
+		Vertice v4 = new Vertice(4);
 
 		// Adicionando vértices no grafo
 		g.adicionaVertice(v1);
 		g.adicionaVertice(v2);
 		g.adicionaVertice(v3);
+		g.adicionaVertice(v4);
 
 		// Ligando vértices
 		v1.liga(v2);
-		v2.liga(v3);
-		v3.liga(v1);
+		v1.liga(v3);
+		v2.liga(v4);
 
 		g.mostraVertices();
 		g.mostraLA();
