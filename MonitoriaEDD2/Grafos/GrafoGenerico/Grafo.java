@@ -6,6 +6,40 @@ import java.util.ArrayList;
 public class Grafo {
 	private ArrayList<Vertice> vertices = new ArrayList<Vertice>(); // Conjunto de vértices do grafo
 
+	// Checa se o grafo é regular (todos os vértices possuem o mesmo grau)
+	public boolean regular() {
+		int grau = 0;
+		boolean regular = true;
+
+		for (int i = 0; i < vertices.size(); i++) {
+			// Na primeira passagem, armazena o valor do grau
+			if (i == 0) {
+				grau = vertices.get(i).getGrau();
+			} else if (vertices.get(i).getGrau() != grau) {
+				return false;
+			}
+		}
+		return regular;
+	}
+	
+	// Checa se o grafo é nulo (não possui arestas)
+	public boolean nulo() {
+		for (int i = 0; i < vertices.size(); i++) {
+			if(vertices.get(i).getGrau() != 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	// Checa se o grafo é completo (regular de grau n-1, onde n = |v|)
+	public boolean completo() {
+		if(this.regular() && (vertices.get(0).getGrau() == vertices.size()-1)) {
+			return true;
+		}
+		return false;
+	}
+
 	// Mostrando os vértices por Lista de Adjacência
 	public void mostraLA() {
 		System.out.println("LISTA DE ADJACÊNCIA");
@@ -34,7 +68,8 @@ public class Grafo {
 		for (int i = 0; i < vertices.size(); i++) {
 			System.out.print(vertices.get(i).chave + ": ");
 			for (int j = 0; j < vertices.size(); j++) {
-				// Boolean que controla se o vértice foi encontrado nos adjacentes do vértice i atual
+				// Boolean que controla se o vértice foi encontrado nos adjacentes do vértice i
+				// atual
 				boolean encontrou = false;
 				for (int k = 0; k < vertices.get(i).adjacentes.size(); k++) {
 					// Se encontrou, printa 1 e vai para a próxima testagem
@@ -44,7 +79,8 @@ public class Grafo {
 						break;
 					}
 				}
-				if(encontrou == false) {
+				// Caso não tenha encontrado, printa 0
+				if (encontrou == false) {
 					System.out.print("0 ");
 				}
 			}

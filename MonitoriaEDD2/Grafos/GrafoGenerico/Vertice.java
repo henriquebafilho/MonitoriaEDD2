@@ -9,6 +9,11 @@ public class Vertice {
 	public Vertice(int chave) {
 		this.chave = chave; // Atribuindo o vértice que for inserido
 	}
+	
+	// Retorna o grau do vértice
+	public int getGrau() {
+		return adjacentes.size();
+	}
 
 	// Liga o vértice atual ao do parâmetro
 	public void liga(Vertice v) {
