@@ -35,7 +35,7 @@ public class Vertice {
 	public void mostraAdjacentes() {
 		// Caso não tenha adjacentes
 		if (adjacentes.size() == 0) {
-			System.out.println("O vértice " + this.chave + " não possui vértices adjacentes");
+			System.out.println(this.chave + " não possui vértices adjacentes");
 			return;
 		}
 

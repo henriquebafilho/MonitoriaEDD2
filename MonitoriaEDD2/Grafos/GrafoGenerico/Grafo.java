@@ -43,10 +43,9 @@ public class Grafo {
 						encontrou = true;
 						break;
 					}
-					// Se chegou na última testagem e não achou, printa 0
-					if ((k == vertices.get(i).adjacentes.size() - 1) && encontrou == false) {
-						System.out.print("0 ");
-					}
+				}
+				if(encontrou == false) {
+					System.out.print("0 ");
 				}
 			}
 			System.out.println();

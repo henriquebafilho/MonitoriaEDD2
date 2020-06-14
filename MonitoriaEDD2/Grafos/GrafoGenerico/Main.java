@@ -22,8 +22,8 @@ public class Main {
 		
 		// Ligando vértices
 		v1.liga(v2);
-		v3.liga(v2);
-		v1.liga(v3);
+		v2.liga(v3);
+		v3.liga(v1);
 		
 		g.mostraVertices();
 		g.mostraLA();
