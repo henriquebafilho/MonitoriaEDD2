@@ -40,21 +40,21 @@ public class Grafo {
 		return false;
 	}
 
-	// Checa se o grafo é conexo (contém 1 vértice que alcance todos os outros)
-	public boolean conexo() {
-		ArrayList<Vertice> percorridos = new ArrayList<Vertice>();
-		
-		// Caso o grafo só tenha um vértice
-		if(vertices.size() > 1) {
-			// Checa se é conexo a partir do primeiro vértice
-			vertices.get(0)
-			
-		}
-		return true;
-	}
-	private void conexo(Vertice v, ArrayList<Vertice> adjs) {
-		
-	}
+//	// Checa se o grafo é conexo (contém 1 vértice que alcance todos os outros)
+//	public boolean conexo() {
+//		ArrayList<Vertice> percorridos = new ArrayList<Vertice>();
+//		
+//		// Caso o grafo só tenha um vértice
+//		if(vertices.size() > 1) {
+//			// Checa se é conexo a partir do primeiro vértice
+//			vertices.get(0)
+//			
+//		}
+//		return true;
+//	}
+//	private void conexo(Vertice v, ArrayList<Vertice> adjs) {
+//		
+//	}
 
 	// Mostrando os vértices por Lista de Adjacência
 	public void mostraLA() {
