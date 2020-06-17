@@ -26,9 +26,9 @@ public class Main {
 //		v1.liga(v2);
 //		v1.liga(v3);
 //		v2.liga(v4);
-		
+
 //-------------------------------------------------------------------------
-		
+
 		// Criando vértices
 		Vertice v0 = new Vertice(0);
 		Vertice v1 = new Vertice(1);
@@ -83,7 +83,7 @@ public class Main {
 		System.out.println("\nO grafo é nulo? " + g.nulo());
 		System.out.println("O grafo é regular? " + g.regular());
 		System.out.println("O grafo é completo? " + g.completo());
-		System.out.println(v4.atinge(v7));
+		System.out.println("O grafo é conexo? " + g.conexo());
 	}
 
 }
