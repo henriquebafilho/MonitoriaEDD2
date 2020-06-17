@@ -5,6 +5,11 @@ import java.util.ArrayList;
 
 public class Grafo {
 	private ArrayList<Vertice> vertices = new ArrayList<Vertice>(); // Conjunto de vértices do grafo
+	
+	// Adiciona o vértice no grafo
+	public void adicionaVertice(Vertice v) {
+		vertices.add(v);
+	}
 
 	// Checa se o grafo é regular (todos os vértices possuem o mesmo grau)
 	public boolean regular() {
@@ -43,19 +48,17 @@ public class Grafo {
 	// Checa se o grafo é conexo (contém 1 vértice que alcance todos os outros)
 	/*
 	 * Utilizando o arraylist 'vertices', são adicionados à 'percorridos' todos os
-	 * vértices e adjacentes encontrados a partir do primeiro elemento. Se o número de
-	 * 'percorridos' for igual ao de 'vertices', significa que ele percorreu todo o
-	 * grafo, ou seja, o grafo é conexo. Caso contrário, há pelo menos um vértice
+	 * vértices e adjacentes encontrados a partir do primeiro elemento. Se o número
+	 * de 'percorridos' for igual ao de 'vertices', significa que ele percorreu todo
+	 * o grafo, ou seja, o grafo é conexo. Caso contrário, há pelo menos um vértice
 	 * que não foi alcançado, logo o grafo não é conexo.
 	 */
 	public boolean conexo() {
-		// Armazena os vértices percorridos
 		ArrayList<Vertice> percorridos = new ArrayList<Vertice>();
-		// Armazena o primeiro vértice do grafo
-		Vertice atual = vertices.get(0);
+		Vertice v0 = vertices.get(0);
 
-		// Começa a percorrer os vértices e adjacentes
-		inserePercorrido(atual, percorridos);
+		// Percorre os vértices e seus adjacentes
+		inserePercorrido(v0, percorridos);
 
 		// Se o 'percorridos' não tem o mesmo tamanho que 'vertices', não é conexo
 		if (percorridos.size() != vertices.size()) {
@@ -80,18 +83,19 @@ public class Grafo {
 		}
 		return true;
 	}
-	
-	// Função recursiva para inserir em 'percorridos' os vértices e adjacentes
+
+	// Função recursiva para inserir em 'percorridos' o vértice e seus adjacentes
 	private void inserePercorrido(Vertice atual, ArrayList<Vertice> percorridos) {
 		// Se o atual não está no 'percorridos', insere ele
 		if (!percorridos.contains(atual)) {
 			percorridos.add(atual);
 		}
 
-		// Adicional os adjacentes
+		// Adiciona os adjacentes do atual (caso não estejam nos percorridos)
 		for (int i = 0; i < atual.adjacentes.size(); i++) {
 			if (!percorridos.contains(atual.adjacentes.get(i))) {
 				percorridos.add(atual.adjacentes.get(i));
+				
 				// Chama a função para fazer o mesmo procedimento com os adjacentes
 				inserePercorrido(atual.adjacentes.get(i), percorridos);
 			}
@@ -156,10 +160,4 @@ public class Grafo {
 		System.out.println();
 		System.out.println();
 	}
-
-	// Adiciona o vértice no grafo
-	public void adicionaVertice(Vertice v) {
-		vertices.add(v);
-	}
-
 }

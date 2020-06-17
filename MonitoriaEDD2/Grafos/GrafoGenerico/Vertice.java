@@ -38,16 +38,10 @@ public class Vertice {
 
 	// Checa se o vértice está no grafo
 	public boolean contemAdjacente(Vertice v) {
-		System.out.println("------------");
-		System.out.println(this.chave);
 		for (int i = 0; i < adjacentes.size(); i++) {
-			System.out.println("atual: " + adjacentes.get(i).chave);
-			System.out.println("procurado: " + v.chave);
 			if (adjacentes.get(i).chave == v.chave) {
-				System.out.println("ACHOU");
 				return true;
 			}
-			System.out.println();
 		}
 		return false;
 	}
