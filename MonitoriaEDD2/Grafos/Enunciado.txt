@@ -1,0 +1,8 @@
+1 – Definir um TAD Grafo (incluindo funções básicas) 
+2 – Implementar uma classe Grafo por Matriz de Adjacências; 
+3 - Implementar uma classe Grafo por Matriz de Adjacências; 
+4 – Acrescentar as seguintes funções às classes anteriormente definidas: 
+a) Determinar se G é nulo; 
+b) Determinar se G é regular; 
+c) Determinar se G é completo; 
+d) Determinar se G é conexo; 
