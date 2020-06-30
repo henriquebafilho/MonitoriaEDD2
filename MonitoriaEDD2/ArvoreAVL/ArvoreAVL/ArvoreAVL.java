@@ -153,7 +153,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		return inserido;
 	}
 
-	// Insere nó na árvore
+	// Insere nó na árvore, depois balancea a árvore
 	public void insere(Chave chave) {
 		No no = new No(chave);
 
@@ -163,6 +163,9 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 
 		raiz = insere(raiz, chave);
+		
+		// Depois de cada inserção, checa se a árvore está balanceada
+		balancear();
 	}
 
 	private No insere(No no, Chave chave) {
@@ -203,7 +206,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		}
 	}
 
-	// Deletar um nó
+	// Deletar um nó e checa se a árvore está balanceada,
 	public boolean delete(Chave chave) {
 		raiz = delete(raiz, chave);
 
@@ -358,6 +361,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			escolheRotacao(desregulado, paiDesregulado, getFatorBalanceamento(desregulado));
 		} else {
 			System.out.println("A árvore está balanceada!");
+			System.out.println();
 			return;
 		}
 
@@ -399,7 +403,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			if (desregulado != null) {
 				// Se o nó for desregulado e seu q for menor que o do desregulado atual,
 				// atualiza o desregulado
-				if (Math.abs(q) < Math.abs(getFatorBalanceamento(desregulado))) {
+				if (Math.abs(q) <= Math.abs(getFatorBalanceamento(desregulado))) {
 					desregulado = atual;
 				}
 			}
@@ -407,7 +411,6 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			else {
 				desregulado = atual;
 			}
-			System.out.println(desregulado.chave);
 		}
 
 		if (atual.esq != null) {
@@ -463,14 +466,9 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		if (desregulado.chave == raiz.chave) {
 			raiz = desregulado.esq;
 		}
-
-		if (novaRaiz.dir == null) {
-			novaRaiz.dir = raizFirst;
-			raizFirst.esq = null;
-		} else {
-			raizFirst.esq = novaRaiz.dir;
-			novaRaiz.dir = raizFirst;
-		}
+		
+		raizFirst.esq = novaRaiz.dir;
+		novaRaiz.dir = raizFirst;
 
 		// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
 		if (pai != null) {
@@ -489,18 +487,13 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		// Armazena a primeira raiz antes da rotação
 		No raizFirst = desregulado;
 
-		// Se o desregulado estiver na raiz
+		// Se o desregulado estiver na raiz, atualiza a raiz
 		if (desregulado.chave == raiz.chave) {
 			raiz = desregulado.dir;
 		}
 
-		if (novaRaiz.esq == null) {
-			novaRaiz.esq = raizFirst;
-			raizFirst.dir = null;
-		} else {
-			raizFirst.dir = novaRaiz.esq;
-			novaRaiz.esq = raizFirst;
-		}
+		raizFirst.dir = novaRaiz.esq;
+		novaRaiz.esq = raizFirst;
 
 		// Caso o pai seja maior que o filho, aponta seu esquerdo para a nova raiz
 		if (pai != null) {
