@@ -161,7 +161,8 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 		if (no.chave == null) {
 			throw new IllegalArgumentException("A chave fornecida é null!");
 		}
-
+		
+		System.out.println("Insere: " + chave);
 		raiz = insere(raiz, chave);
 		
 		// Depois de cada inserção, checa se a árvore está balanceada
@@ -248,7 +249,7 @@ public class ArvoreAVL<Chave extends Comparable<Chave>> {
 			// Pega o menor da subárvore direita (mais à esquerda)
 			atual = min(aux.dir);
 
-			// Remove o menor
+			// Remove o menor nó da sub-árvore direita
 			atual.dir = deleteMin(aux.dir);
 
 			// A subárvore esquerda se mantém a mesma
