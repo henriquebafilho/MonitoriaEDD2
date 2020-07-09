@@ -58,7 +58,7 @@ public class Grafo {
 		Vertice v0 = vertices.get(0);
 
 		// Percorre os vértices e seus adjacentes
-		inserePercorrido(v0, percorridos);
+		inserePercorridos(v0, percorridos);
 
 		// Se o 'percorridos' não tem o mesmo tamanho que 'vertices', não é conexo
 		if (percorridos.size() != vertices.size()) {
@@ -85,7 +85,7 @@ public class Grafo {
 	}
 
 	// Função recursiva para inserir em 'percorridos' o vértice e seus adjacentes
-	private void inserePercorrido(Vertice atual, ArrayList<Vertice> percorridos) {
+	private void inserePercorridos(Vertice atual, ArrayList<Vertice> percorridos) {
 		// Se o atual não está no 'percorridos', insere ele
 		if (!percorridos.contains(atual)) {
 			percorridos.add(atual);
@@ -97,7 +97,7 @@ public class Grafo {
 				percorridos.add(atual.adjacentes.get(i));
 				
 				// Chama a função para fazer o mesmo procedimento com os adjacentes
-				inserePercorrido(atual.adjacentes.get(i), percorridos);
+				inserePercorridos(atual.adjacentes.get(i), percorridos);
 			}
 		}
 	}
