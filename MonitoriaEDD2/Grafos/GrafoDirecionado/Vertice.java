@@ -120,14 +120,4 @@ public class Vertice {
 			}
 		}
 	}
-
-	public void mostraArrayListVertices(ArrayList<Vertice> arraylist) {
-		System.out.print("[");
-		for (int i = 0; i < arraylist.size(); i++) {
-			Vertice atual = arraylist.get(i);
-			System.out.print(atual.chave + " ");
-		}
-		System.out.print("]");
-		System.out.println();
-	}
 }

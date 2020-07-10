@@ -63,6 +63,7 @@ public class Vertice {
 		System.out.println();
 	}
 
+	// Checa se o vértice que chamou a função alcança o do parâmetro
 	public boolean alcanca(Vertice v) {
 		// Se o v está nos adjacentes do vértice que chamou a função ou é igual a ele
 		if (this.contemAdjacente(v) || (this.chave == v.chave)) {
@@ -95,15 +96,5 @@ public class Vertice {
 				insereAlcancaveis(atual, alcancaveis);
 			}
 		}
-	}
-
-	public void mostraArrayListVertices(ArrayList<Vertice> arraylist) {
-		System.out.print("[");
-		for (int i = 0; i < arraylist.size(); i++) {
-			Vertice atual = arraylist.get(i);
-			System.out.print(atual.chave + " ");
-		}
-		System.out.print("]");
-		System.out.println();
 	}
 }

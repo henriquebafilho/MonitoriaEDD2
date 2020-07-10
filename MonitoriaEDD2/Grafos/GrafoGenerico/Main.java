@@ -42,7 +42,6 @@ public class Main {
 		Vertice v9 = new Vertice(9);
 		Vertice v10 = new Vertice(10);
 		Vertice v11 = new Vertice(11);
-		Vertice v12 = new Vertice(12);
 
 		// Adicionando vértices no grafo
 		g.adicionaVertice(v0);
@@ -57,7 +56,6 @@ public class Main {
 		g.adicionaVertice(v9);
 		g.adicionaVertice(v10);
 		g.adicionaVertice(v11);
-		g.adicionaVertice(v12);
 
 		// Ligando vértices
 		v0.liga(v1);
@@ -86,6 +84,7 @@ public class Main {
 		System.out.println("O grafo é regular? " + g.regular());
 		System.out.println("O grafo é completo? " + g.completo());
 		System.out.println("O grafo é conexo? " + g.conexo());
+		// Exemplo da função 'alcanca'
 		System.out.println(v2.alcanca(v7));
 	}
 
