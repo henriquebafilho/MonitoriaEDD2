@@ -44,61 +44,17 @@ public class Grafo {
 		return false;
 	}
 
-	// Checa se o grafo é conexo (contém 1 vértice que alcance todos os outros)
-	/*
-	 * Utilizando o arraylist 'vertices', são adicionados à 'percorridos' todos os
-	 * vértices e adjacentes encontrados a partir do primeiro elemento. Se o número
-	 * de 'percorridos' for igual ao de 'vertices', significa que ele percorreu todo
-	 * o grafo, ou seja, o grafo é conexo. Caso contrário, há pelo menos um vértice
-	 * que não foi alcançado, logo o grafo não é conexo.
-	 */
+	// Checa se o grafo é conexo (todos os vértices se alcançam)
+	// Percorre os vértices do grafo checando se eles se alcançam entre si
 	public boolean conexo() {
-		ArrayList<Vertice> percorridos = new ArrayList<Vertice>();
-		Vertice v0 = vertices.get(0);
-
-		// Percorre os vértices e seus adjacentes
-		inserePercorridos(v0, percorridos);
-
-		// Se o 'percorridos' não tem o mesmo tamanho que 'vertices', não é conexo
-		if (percorridos.size() != vertices.size()) {
-			return false;
-		}
-
-		/*
-		 * Percorre o 'percorridos' e compara com 'vertices' do grafo. Se todos do
-		 * 'percorridos' estiverem no 'vertices', o grafo é conexo
-		 */
-		for (int i = 0; i < percorridos.size(); i++) {
-			boolean encontrou = false;
-			for (int j = 0; j < vertices.size(); j++) {
-				if (percorridos.get(i).chave == vertices.get(j).chave) {
-					encontrou = true;
+		for(int i = 0; i < vertices.size(); i++) {
+			for(int j = 0; j < vertices.size(); j++) {
+				if(!vertices.get(i).alcanca(vertices.get(j))) {
+					return false;
 				}
-			}
-			// Se não encontrou, o grafo não é conexo
-			if (encontrou = false) {
-				return false;
 			}
 		}
 		return true;
-	}
-
-	// Função recursiva para inserir em 'percorridos' o vértice e seus adjacentes
-	private void inserePercorridos(Vertice vertice, ArrayList<Vertice> percorridos) {
-		// Se o atual não está no 'percorridos', insere ele
-		if (!percorridos.contains(vertice)) {
-			percorridos.add(vertice);
-		}
-
-		// Adiciona os adjacentes do atual (caso não estejam nos percorridos)
-		for (int i = 0; i < vertice.saida.size(); i++) {
-			Vertice atual = vertice.saida.get(i);
-
-			if (!percorridos.contains(vertice.saida.get(i))) {
-				percorridos.add(atual);
-				inserePercorridos(atual, percorridos);
-			}
-		}
 	}
 
 	// Mostrando os vértices de saída por Lista de Adjacência
