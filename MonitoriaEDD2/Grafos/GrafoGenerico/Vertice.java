@@ -73,8 +73,6 @@ public class Vertice {
 		ArrayList<Vertice> alcancaveis = new ArrayList<Vertice>();
 		insereAlcancaveis(this, alcancaveis);
 
-		mostraArrayListVertices(alcancaveis);
-
 		if (alcancaveis.contains(v)) {
 			return true;
 		}
@@ -94,8 +92,6 @@ public class Vertice {
 
 			if (!alcancaveis.contains(atual)) {
 				alcancaveis.add(atual);
-
-				// Chama a função para fazer o mesmo procedimento com os adjacentes
 				insereAlcancaveis(atual, alcancaveis);
 			}
 		}

@@ -1,11 +1,10 @@
-// Declaração de grafos utilizando ArrayList
-package GrafoGenerico;
+package GrafoDirecionado;
 
 import java.util.ArrayList;
 
 public class Grafo {
 	private ArrayList<Vertice> vertices = new ArrayList<Vertice>(); // Conjunto de vértices do grafo
-	
+
 	// Adiciona o vértice no grafo
 	public void adicionaVertice(Vertice v) {
 		vertices.add(v);
@@ -19,8 +18,8 @@ public class Grafo {
 		for (int i = 0; i < vertices.size(); i++) {
 			// Na primeira passagem, armazena o valor do grau
 			if (i == 0) {
-				grau = vertices.get(i).getGrau();
-			} else if (vertices.get(i).getGrau() != grau) {
+				grau = vertices.get(i).getGrauSaida();
+			} else if (vertices.get(i).getGrauSaida() != grau) {
 				return false;
 			}
 		}
@@ -30,7 +29,7 @@ public class Grafo {
 	// Checa se o grafo é nulo (não possui arestas)
 	public boolean nulo() {
 		for (int i = 0; i < vertices.size(); i++) {
-			if (vertices.get(i).getGrau() != 0) {
+			if (vertices.get(i).getGrauSaida() != 0) {
 				return false;
 			}
 		}
@@ -39,7 +38,7 @@ public class Grafo {
 
 	// Checa se o grafo é completo (regular de grau n-1, onde n = |v|)
 	public boolean completo() {
-		if (this.regular() && (vertices.get(0).getGrau() == vertices.size() - 1)) {
+		if (this.regular() && (vertices.get(0).getGrauSaida() == vertices.size() - 1)) {
 			return true;
 		}
 		return false;
@@ -92,19 +91,19 @@ public class Grafo {
 		}
 
 		// Adiciona os adjacentes do atual (caso não estejam nos percorridos)
-		for (int i = 0; i < vertice.adjacentes.size(); i++) {
-			Vertice atual = vertice.adjacentes.get(i);
-			
-			if (!percorridos.contains(vertice.adjacentes.get(i))) {
+		for (int i = 0; i < vertice.saida.size(); i++) {
+			Vertice atual = vertice.saida.get(i);
+
+			if (!percorridos.contains(vertice.saida.get(i))) {
 				percorridos.add(atual);
 				inserePercorridos(atual, percorridos);
 			}
 		}
 	}
 
-	// Mostrando os vértices por Lista de Adjacência
-	public void mostraLA() {
-		System.out.println("LISTA DE ADJACÊNCIA");
+	// Mostrando os vértices de saída por Lista de Adjacência
+	public void mostraLASaida() {
+		System.out.println("LISTA DE ADJACÊNCIA (SAÍDA)");
 		// Caso não tenha vértices no grafo
 		if (vertices.size() == 0) {
 			System.out.println("O grafo não possui vértices");
@@ -112,14 +111,14 @@ public class Grafo {
 		}
 
 		for (int i = 0; i < vertices.size(); i++) {
-			vertices.get(i).mostraAdjacentes();
+			vertices.get(i).mostraSaida();
 		}
 		System.out.println();
 	}
 
-	// Mostrando os vértices por Matriz de Adjacência
-	public void mostraMA() {
-		System.out.println("MATRIZ DE ADJACÊNCIA");
+	// Mostrando os vértices de saída por Matriz de Adjacência
+	public void mostraMASaida() {
+		System.out.println("MATRIZ DE ADJACÊNCIA (SAÍDA)");
 		System.out.print("   ");
 
 		for (int i = 0; i < vertices.size(); i++) {
@@ -133,9 +132,57 @@ public class Grafo {
 				// Boolean que controla se o vértice foi encontrado nos adjacentes do vértice i
 				// atual
 				boolean encontrou = false;
-				for (int k = 0; k < vertices.get(i).adjacentes.size(); k++) {
+				for (int k = 0; k < vertices.get(i).saida.size(); k++) {
 					// Se encontrou, printa 1 e vai para a próxima testagem
-					if (vertices.get(j).chave == vertices.get(i).adjacentes.get(k).chave) {
+					if (vertices.get(j).chave == vertices.get(i).saida.get(k).chave) {
+						System.out.print("1 ");
+						encontrou = true;
+						break;
+					}
+				}
+				// Caso não tenha encontrado, printa 0
+				if (encontrou == false) {
+					System.out.print("0 ");
+				}
+			}
+			System.out.println();
+		}
+	}
+
+	// Mostrando os vértices de entrada por Lista de Adjacência
+	public void mostraLAEntrada() {
+		System.out.println("LISTA DE ADJACÊNCIA (ENTRADA)");
+		// Caso não tenha vértices no grafo
+		if (vertices.size() == 0) {
+			System.out.println("O grafo não possui vértices");
+			return;
+		}
+
+		for (int i = 0; i < vertices.size(); i++) {
+			vertices.get(i).mostraEntrada();
+		}
+		System.out.println();
+	}
+
+	// Mostrando os vértices de entrada por Matriz de Adjacência
+	public void mostraMAEntrada() {
+		System.out.println("MATRIZ DE ADJACÊNCIA (ENTRADA)");
+		System.out.print("   ");
+
+		for (int i = 0; i < vertices.size(); i++) {
+			System.out.print(vertices.get(i).chave + " ");
+		}
+		System.out.println();
+
+		for (int i = 0; i < vertices.size(); i++) {
+			System.out.print(vertices.get(i).chave + ": ");
+			for (int j = 0; j < vertices.size(); j++) {
+				// Boolean que controla se o vértice foi encontrado nos adjacentes do vértice i
+				// atual
+				boolean encontrou = false;
+				for (int k = 0; k < vertices.get(i).entrada.size(); k++) {
+					// Se encontrou, printa 1 e vai para a próxima testagem
+					if (vertices.get(j).chave == vertices.get(i).entrada.get(k).chave) {
 						System.out.print("1 ");
 						encontrou = true;
 						break;
