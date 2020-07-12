@@ -65,6 +65,8 @@ public class Vertice {
 
 	// Checa se o vértice que chamou a função alcança o do parâmetro
 	public boolean alcanca(Vertice v) {
+		boolean alcanca = false;
+		
 		// Se o v está nos adjacentes do vértice que chamou a função ou é igual a ele
 		if (this.contemAdjacente(v) || (this.chave == v.chave)) {
 			return true;
@@ -72,28 +74,35 @@ public class Vertice {
 
 		// adiciona a 'alcancaveis' todos os nós que v pode atingir
 		ArrayList<Vertice> alcancaveis = new ArrayList<Vertice>();
-		procuraVertice(this, alcancaveis);
-		
-		if(alcancaveis.contains(v)) {
-			return true;
+
+		// Adiciona os adjacentes do atual (caso não estejam nos percorridos)
+		for (int i = 0; i < this.adjacentes.size(); i++) {
+			Vertice atual = this.adjacentes.get(i);
+
+			if (!alcancaveis.contains(atual)) {
+				alcanca = procuraVertice(atual, v, alcancaveis);
+			}
 		}
-		return false;
+		return alcanca;
 	}
 
 	// Função recursiva para inserir em 'alcancaveis' o vértice e seus adjacentes
-	private void procuraVertice(Vertice vertice, ArrayList<Vertice> alcancaveis) {
+	private boolean procuraVertice(Vertice vertice, Vertice procurado, ArrayList<Vertice> alcancaveis) {
+
+		boolean alcanca = false;
+
+		System.out.println("atual: " + vertice.chave + "/ procurado: " + procurado.chave);
+
 		// Se o atual não está no 'alcacaveis', insere ele
 		if (!alcancaveis.contains(vertice)) {
 			alcancaveis.add(vertice);
 		}
 
-		// Adiciona os adjacentes do atual (caso não estejam nos percorridos)
-		for (int i = 0; i < vertice.adjacentes.size(); i++) {
-			Vertice atual = vertice.adjacentes.get(i);
-
-			if (!alcancaveis.contains(atual)) {
-				procuraVertice(atual, alcancaveis);
-			}
+		if (vertice.contemAdjacente(procurado)) {
+			alcanca = true;
+			return alcanca;
 		}
+
+		return alcanca;
 	}
 }
