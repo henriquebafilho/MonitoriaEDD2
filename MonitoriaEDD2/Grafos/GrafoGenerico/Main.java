@@ -85,7 +85,7 @@ public class Main {
 		System.out.println("O grafo é completo? " + g.completo());
 		System.out.println("O grafo é conexo? " + g.conexo());
 		// Exemplo da função 'alcanca'
-		System.out.println(v11.alcanca(v5));
+		System.out.println(v5.alcanca(v0));
 	}
 
 }

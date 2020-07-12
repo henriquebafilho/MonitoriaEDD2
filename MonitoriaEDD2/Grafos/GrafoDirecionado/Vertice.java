@@ -119,7 +119,6 @@ public class Vertice {
 			}
 
 			if (!alcancaveis.contains(atual)) {
-				alcancaveis.add(atual);
 				alcanca = procuraVertice(atual, procurado, alcancaveis);
 			}
 		}

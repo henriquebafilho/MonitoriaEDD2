@@ -72,16 +72,16 @@ public class Vertice {
 
 		// adiciona a 'alcancaveis' todos os nós que v pode atingir
 		ArrayList<Vertice> alcancaveis = new ArrayList<Vertice>();
-		insereAlcancaveis(this, alcancaveis);
-
-		if (alcancaveis.contains(v)) {
+		procuraVertice(this, alcancaveis);
+		
+		if(alcancaveis.contains(v)) {
 			return true;
 		}
 		return false;
 	}
 
 	// Função recursiva para inserir em 'alcancaveis' o vértice e seus adjacentes
-	private void insereAlcancaveis(Vertice vertice, ArrayList<Vertice> alcancaveis) {
+	private void procuraVertice(Vertice vertice, ArrayList<Vertice> alcancaveis) {
 		// Se o atual não está no 'alcacaveis', insere ele
 		if (!alcancaveis.contains(vertice)) {
 			alcancaveis.add(vertice);
@@ -92,8 +92,7 @@ public class Vertice {
 			Vertice atual = vertice.adjacentes.get(i);
 
 			if (!alcancaveis.contains(atual)) {
-				alcancaveis.add(atual);
-				insereAlcancaveis(atual, alcancaveis);
+				procuraVertice(atual, alcancaveis);
 			}
 		}
 	}

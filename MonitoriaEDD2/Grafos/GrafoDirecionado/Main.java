@@ -85,7 +85,7 @@ public class Main {
 		System.out.println("O grafo é regular? " + g.regular());
 		System.out.println("O grafo é completo? " + g.completo());
 		System.out.println("O grafo é conexo? " + g.conexo());
-		System.out.println(v5.alcanca(v8));
+		System.out.println(v5.alcanca(v7));
 	}
 
 }
