@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="ArvoreAVL"/>
 	<classpathentry kind="src" path="Grafos"/>
+	<classpathentry kind="src" path="ArvoreBinariaBusca"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

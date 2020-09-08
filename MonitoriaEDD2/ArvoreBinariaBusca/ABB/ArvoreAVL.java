@@ -1,4 +1,4 @@
-package ArvoreAVL;
+package ABB;
 
 public class ArvoreAVL<Chave extends Comparable<Chave>> {
 	private No raiz; // raiz da árvore
