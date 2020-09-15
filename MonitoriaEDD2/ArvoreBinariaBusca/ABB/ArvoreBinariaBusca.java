@@ -4,8 +4,8 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 	private No raiz; // raiz da árvore
 
 	private class No {
-		private Chave chave; // Chave usada nas comparações
-		private No esq, dir, paiDesregulado; // Referências para subárvores esquerda e direita
+		private Chave chave;
+		private No esq, dir;
 
 		public No(Chave chave) {
 			this.chave = chave;
@@ -25,13 +25,45 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 		this.raiz = noRaiz;
 	}
 
+	// Insere nó na árvore, depois balancea a árvore
+	public void insere(Chave chave) {
+		No no = new No(chave);
+
+		// Caso o nó tenha chave nula
+		if (no.chave == null) {
+			throw new IllegalArgumentException("A chave fornecida é null!");
+		}
+		raiz = insere(raiz, chave);
+	}
+
+	private No insere(No no, Chave chave) {
+		// Caso base: encontrou a posição de inserção
+		if (no == null) {
+			return new No(chave);
+		}
+
+		// se a chave inserida for menor que a atual, vai para esquerda
+		if (chave.compareTo(no.chave) < 0) {
+			no.esq = insere(no.esq, chave);
+		}
+		// se a chave inserida for maior que a atual, vai para direita
+		else if (chave.compareTo(no.chave) > 0) {
+			no.dir = insere(no.dir, chave);
+		}
+		// Caso tenha encontrado nó de mesma chave, sobreescreve
+		else {
+			no.chave = chave;
+		}
+		return no;
+	}
+
 	// Retorna raiz da árvore
 	public No getRaiz() {
 		return this.raiz;
 	}
 
 	// Retorna a chave da raiz
-	public Chave getChaveRaiz() {
+	public Chave getRaizChave() {
 		if (this.raiz == null) {
 			System.out.println("A raiz é nula");
 			return null;
@@ -82,31 +114,6 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 		System.out.print(")");
 	}
 
-	// Conta quantos nós tem na árvore a partir da raiz
-	public int contaNos() {
-		return contaNos(raiz);
-	}
-	
-	private int contaNos(No no) {
-		if (no == null) {
-			return 0;
-		}
-
-		if ((raiz.esq == null) && (raiz.dir == null)) {
-			return 1;
-		}
-
-		int nosEsq = 0, nosDir = 0;
-
-		if (no.esq != null) {
-			nosEsq = contaNos(no.esq);
-		}
-		if (no.dir != null) {
-			nosDir = contaNos(no.dir);
-		}
-		return 1 + nosEsq + nosDir;
-	}
-
 	// Procura a chave inserida no método e retorna o nó
 	public No busca(Chave chave) {
 		if (chave == null) {
@@ -151,38 +158,25 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 		return inserido;
 	}
 
-	// Insere nó na árvore, depois balancea a árvore
-	public void insere(Chave chave) {
-		No no = new No(chave);
+	// Calcula altura do nó
+	public int calculaAltura(No no) {
+		int altEsq = 0, altDir = 0;
 
-		// Caso o nó tenha chave nula
-		if (no.chave == null) {
-			throw new IllegalArgumentException("A chave fornecida é null!");
-		}
-		
-		System.out.println("Insere: " + chave);
-		raiz = insere(raiz, chave);
-	}
-
-	private No insere(No no, Chave chave) {
-		// Caso base: encontrou a posição de inserção
 		if (no == null) {
-			return new No(chave);
+			return -1;
 		}
 
-		// se a chave inserida for menor que a atual, vai para esquerda
-		if (chave.compareTo(no.chave) < 0) {
-			no.esq = insere(no.esq, chave);
+		if (folha(no)) {
+			return 0;
 		}
-		// se a chave inserida for maior que a atual, vai para direita
-		else if (chave.compareTo(no.chave) > 0) {
-			no.dir = insere(no.dir, chave);
+
+		if (no.esq != null) {
+			altEsq = this.calculaAltura(no.esq);
 		}
-		// Caso tenha encontrado nó de mesma chave, sobreescreve
-		else {
-			no.chave = chave;
+		if (no.dir != null) {
+			altDir = this.calculaAltura(no.dir);
 		}
-		return no;
+		return 1 + Math.max(altEsq, altDir);
 	}
 
 	// Pega a menor chave da árvore
@@ -200,6 +194,26 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 		} else {
 			return min(atual.esq);
 		}
+	}
+
+	// Deleta o menor nó da árvore
+	public void deleteMin() {
+		if (vazia()) {
+			System.out.println("A árvore está vazia");
+			return;
+		}
+		raiz = deleteMin(raiz);
+	}
+
+	private No deleteMin(No atual) {
+		// Caso não tenha filho à esquerda, o nó atual possui a menor chave
+		if (atual.esq == null) {
+			// Se o atual.dir não for nulo, o pai do menor passa a apontar para ele
+			return atual.dir;
+		}
+		atual.esq = deleteMin(atual.esq);
+
+		return atual;
 	}
 
 	// Deletar um nó e checa se a árvore está balanceada,
@@ -249,46 +263,5 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 			atual.esq = aux.esq;
 		}
 		return atual;
-	}
-
-	// Deleta o menor nó da árvore
-	public void deleteMin() {
-		if (vazia()) {
-			System.out.println("A árvore está vazia");
-			return;
-		}
-		raiz = deleteMin(raiz);
-	}
-
-	private No deleteMin(No atual) {
-		// Caso não tenha filho à esquerda, o nó atual possui a menor chave
-		if (atual.esq == null) {
-			// Se o atual.dir não for nulo, o pai do menor passa a apontar para ele
-			return atual.dir;
-		}
-		atual.esq = deleteMin(atual.esq);
-
-		return atual;
-	}
-
-	// Calcula altura do nó
-	public int calculaAltura(No no) {
-		int altEsq = 0, altDir = 0;
-
-		if (no == null) {
-			return -1;
-		}
-
-		if (folha(no)) {
-			return 0;
-		}
-
-		if (no.esq != null) {
-			altEsq = this.calculaAltura(no.esq);
-		}
-		if (no.dir != null) {
-			altDir = this.calculaAltura(no.dir);
-		}
-		return 1 + Math.max(altEsq, altDir);
 	}
 }
