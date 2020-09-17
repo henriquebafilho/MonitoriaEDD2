@@ -77,7 +77,7 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 	}
 
 	// Checa se é folha
-	public boolean folha(No no) {
+	private boolean folha(No no) {
 		if (no == null) {
 			return false;
 		} else if (no.esq == null && no.dir == null) {
@@ -131,7 +131,7 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 		return procura;
 	}
 
-	public No busca(No no, Chave chave) {
+	private No busca(No no, Chave chave) {
 		No inserido = new No(null);
 
 		if (no == null) {
@@ -139,7 +139,7 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 			return null;
 		}
 
-		// Calcula se a chave prcurada é maior, menor ou igual à atual
+		// Calcula se a chave procurada é maior, menor ou igual à atual
 		int comparador = chave.compareTo(no.chave);
 
 		// Se for menor, busca na esquerda
