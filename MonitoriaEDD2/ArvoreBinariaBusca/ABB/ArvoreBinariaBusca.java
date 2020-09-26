@@ -27,10 +27,8 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 
 	// Insere nó na árvore, depois balancea a árvore
 	public void insere(Chave chave) {
-		No no = new No(chave);
-
 		// Caso o nó tenha chave nula
-		if (no.chave == null) {
+		if (chave == null) {
 			throw new IllegalArgumentException("A chave fornecida é null!");
 		}
 		raiz = insere(raiz, chave);
