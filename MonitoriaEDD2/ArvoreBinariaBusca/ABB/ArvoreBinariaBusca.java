@@ -86,8 +86,8 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 
 	// Mostra árvore a partir da raiz
 	public void mostra() {
+		// Começa a mostrar a partir da raiz
 		mostra(raiz);
-		System.out.println();
 	}
 
 	private void mostra(No no) {
@@ -98,15 +98,19 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 
 		System.out.print("(" + no.chave);
 
+		// Checa os filhos à esquerda
 		if (no.esq != null) {
 			mostra(no.esq);
-		} else if (!folha(no)) {
+		} 
+		else if (!folha(no)) {
 			System.out.print("( )");
 		}
-
+		
+		// Checa os filhos à direita
 		if (no.dir != null) {
 			mostra(no.dir);
-		} else if (!folha(no)) {
+		} 
+		else if (!folha(no)) {
 			System.out.print("( )");
 		}
 		System.out.print(")");
@@ -160,20 +164,28 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 	public int calculaAltura(No no) {
 		int altEsq = 0, altDir = 0;
 
+		// Por definição, todo nó nulo tem altura -1
 		if (no == null) {
 			return -1;
 		}
 
+		// Se for folha (ou seja, chegou no 'No' mais abaixo), retorna 0
 		if (folha(no)) {
 			return 0;
 		}
 
+		// Se tem filho à esquerda, percore ele
 		if (no.esq != null) {
 			altEsq = this.calculaAltura(no.esq);
 		}
+
+		// Se tem filho à direita, percore ele
 		if (no.dir != null) {
 			altDir = this.calculaAltura(no.dir);
 		}
+
+		// Retorna o maior valor entre as 2 subárvores (esquerda e direta) + 1
+		// É somado 1 pois apenas as alturas dos filhos do 'no' foram contadas
 		return 1 + Math.max(altEsq, altDir);
 	}
 
@@ -214,7 +226,7 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 		return atual;
 	}
 
-	// Deletar um nó e checa se a árvore está balanceada,
+	// Deletar um nó
 	public boolean delete(Chave chave) {
 		raiz = delete(raiz, chave);
 
@@ -241,7 +253,8 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 		// Se a atual for maior, checa o filho à direita
 		else if (comparador > 0) {
 			atual.dir = delete(atual.dir, chave);
-		} else {
+		} 
+		else {
 			if (atual.dir == null) {
 				return atual.esq;
 			}
@@ -253,10 +266,10 @@ public class ArvoreBinariaBusca<Chave extends Comparable<Chave>> {
 
 			// Pega o menor da subárvore direita (mais à esquerda)
 			atual = min(aux.dir);
-
+			
 			// Remove o menor nó da sub-árvore direita
 			atual.dir = deleteMin(aux.dir);
-
+			
 			// A subárvore esquerda se mantém a mesma
 			atual.esq = aux.esq;
 		}
